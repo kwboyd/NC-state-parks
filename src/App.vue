@@ -24,7 +24,7 @@ export default {
         .then((response) => {
         //  console.log(response.data)
           this.parks = response.data
-          console.log(this.parks)
+        //  console.log(this.parks)
           this.$evt.$emit('dataLoaded')
       })
     }
