@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <mapgoogle></mapgoogle>
+    <mapgoogle :parks="parks"></mapgoogle>
   </div>
 </template>
 
@@ -20,9 +20,9 @@ export default {
   mounted() {
     axios.get('/static/parks.json')
       .then((response) => {
-        console.log(response.data)
+      //  console.log(response.data)
         this.parks = response.data
-        console.log(this.parks[0].name)
+      //  console.log(this.parks[0].name)
     })
   }
 }

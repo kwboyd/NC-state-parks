@@ -1,7 +1,7 @@
 <!-- much of this code comes from https://developers.google.com/maps/documentation/javascript/examples/directions-waypoints,
 google code was adapted to suit vue, webpack, and this project -->
 <template>
-<div>
+<div :parks="parks">
   <div id="right-panel">
   <div>
   <b>Start:</b>
@@ -84,12 +84,15 @@ export default {
       directionsService: ''
       }
   },
+  props:
+    ['parks'],
   components: {
     wpoption
   },
   methods: {
     initMap: function () {
       console.log('inited')
+      console.log(this.parks)
       var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 6,
         center: {lat: 41.85, lng: -87.65}
