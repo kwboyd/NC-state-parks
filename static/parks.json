@@ -2,19 +2,17 @@
   {
   "name": "Gorges State Park",
   "description": "very pretty",
-    "marker": {
+  "coords": {
       "lat": 35.0960908,
-      "lng": -82.9506875,
-      "z": 0
+      "lng": -82.9506875
       }
   },
 {
   "name": "Chimney Rock State Park",
   "description": "such beautiful",
-    "marker": {
+  "coords": {
       "lat": 35.439988,
-      "lng": -82.2500007,
-      "z": 1
+      "lng": -82.2500007
     }
   }
 ]

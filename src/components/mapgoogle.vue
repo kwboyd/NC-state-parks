@@ -14,8 +14,9 @@ google code was adapted to suit vue, webpack, and this project -->
   <br>
   <b>Waypoints:</b> <br>
   <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br>
-  <wpoption :parks="parks">
-  </wpoption>
+  <select multiple id="waypoints">
+      <option v-for="park in parks" :value="park.name">{{ park.name }}</option>
+  </select>
   <br>
   <b>End:</b>
   <select id="end">
@@ -38,7 +39,9 @@ export default {
     return {
       directionsDisplay: '',
       directionsService: '',
-      dataLoadComplete: false
+      dataLoadComplete: false,
+      locations: [],
+      markers: []
       }
   },
   props:
@@ -47,17 +50,32 @@ export default {
     wpoption
   },
   methods: {
+    pushMarkers: function () {
+      //pushes coordinates from parks to locations index
+      for (var i in this.parks) {
+        this.locations.push(this.parks[i].coords)
+      }
+      console.log(this.locations)
+      this.initMap()
+    },
     initMap: function () {
     // creates the inital map display
       console.log('inited')
-      console.log(this.parks)
-      console.log(this.parks[0].name)
       var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 6,
         center: {lat: 41.85, lng: -87.65}
       })
+
       this.directionsService = new google.maps.DirectionsService
       this.directionsDisplay = new google.maps.DirectionsRenderer
+      for (var location in this.locations) {
+        //pushes coords from locations to markers and creates markers via google
+        this.markers.push (new google.maps.Marker({
+          position: this.locations[location],
+          map: map,
+          animation: google.maps.Animation.DROP
+        }))
+      }
       this.directionsDisplay.setMap(map)
     },
       createMap: function () {
@@ -113,11 +131,11 @@ export default {
     )
     }))
     //listens for dataLoadComplete event, then launches initMap
-    this.$evt.$on('dataLoadComplete', this.initMap)
+    this.$evt.$on('dataLoadComplete', this.pushMarkers)
 },
   beforeDestroy () {
     console.log ('mapgoogle -> beforeDestroy')
-    this.$evt.$off('dataLoadComplete', this.initMap)
+    this.$evt.$off('dataLoadComplete', this.pushMarkers)
     this.$evt.$off('dataLoaded')
     }
 }
