@@ -1,3 +1,5 @@
+<!-- much of this code comes from https://developers.google.com/maps/documentation/javascript/examples/directions-waypoints,
+google code was adapted to suit vue, webpack, and this project -->
 <template>
 <div>
   <div id="right-panel">
@@ -12,15 +14,8 @@
   <br>
   <b>Waypoints:</b> <br>
   <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br>
-  <select multiple id="waypoints">
-    <option value="montreal, quebec">Montreal, QBC</option>
-    <option value="toronto, ont">Toronto, ONT</option>
-    <option value="chicago, il">Chicago</option>
-    <option value="winnipeg, mb">Winnipeg</option>
-    <option value="fargo, nd">Fargo</option>
-    <option value="calgary, ab">Calgary</option>
-    <option value="spokane, wa">Spokane</option>
-  </select>
+  <wpoption>
+  </wpoption>
   <br>
   <b>End:</b>
   <select id="end">
@@ -81,68 +76,72 @@
      }
 </style>
 <script>
+import wpoption from './wpoption'
 export default {
-  data() {
+  data () {
     return {
-      directionsDisplay: "",
-      directionsService: ""
-    }
+      directionsDisplay: '',
+      directionsService: ''
+      }
+  },
+  components: {
+    wpoption
   },
   methods: {
-    initMap: function() {
-    console.log("inited")
+    initMap: function () {
+      console.log('inited')
       var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 6,
         center: {lat: 41.85, lng: -87.65}
-      });
-      this.directionsService = new google.maps.DirectionsService;
-      this.directionsDisplay = new google.maps.DirectionsRenderer;
-      this.directionsDisplay.setMap(map);
-      },
-      createMap: function() {
-          console.log("clicked")
-          var waypts = [];
-          var checkboxArray = document.getElementById('waypoints');
+      })
+      this.directionsService = new google.maps.DirectionsService
+      this.directionsDisplay = new google.maps.DirectionsRenderer
+      this.directionsDisplay.setMap(map)
+    },
+      createMap: function () {
+        console.log('clicked')
+        var waypts = []
+        var checkboxArray = document.getElementById('waypoints')
           for (var i = 0; i < checkboxArray.length; i++) {
             if (checkboxArray.options[i].selected) {
               waypts.push({
                 location: checkboxArray[i].value,
                 stopover: true
-              });
+              })
             }
           }
-          var currentService = this.directionsService;
-          var currentDisplay = this.directionsDisplay;
-          currentService.route({
-            origin: document.getElementById('start').value,
-            destination: document.getElementById('end').value,
-            waypoints: waypts,
-            optimizeWaypoints: true,
-            travelMode: 'DRIVING'
-          }, function(response, status) {
-            if (status === 'OK') {
-            currentDisplay.setDirections(response);
-              var route = response.routes[0];
-              var summaryPanel = document.getElementById('directions-panel');
-              summaryPanel.innerHTML = '';
+        var currentService = this.directionsService
+        var currentDisplay = this.directionsDisplay
+        currentService.route({
+          origin: document.getElementById('start').value,
+          destination: document.getElementById('end').value,
+          waypoints: waypts,
+          optimizeWaypoints: true,
+          travelMode: 'DRIVING'
+          }, function (response, status) {
+        if (status === 'OK') {
+              currentDisplay.setDirections(response)
+              var route = response.routes[0]
+              var summaryPanel = document.getElementById('directions-panel')
+              summaryPanel.innerHTML = ''
               // For each route, display summary information.
               for (var i = 0; i < route.legs.length; i++) {
-                var routeSegment = i + 1;
+                var routeSegment = i + 1
                 summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-                    '</b><br>';
-                summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-                summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-                summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+                    '</b><br>'
+                summaryPanel.innerHTML += route.legs[i].start_address + ' to '
+                summaryPanel.innerHTML += route.legs[i].end_address + '<br>'
+                summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>'
               }
             } else {
-              window.alert('Directions request failed due to ' + status);
+              window.alert('Directions request failed due to ' + status)
             }
-          });
+        })
       }
   },
   created () {
-  console.log("created")
-  this.initMap();
+    console.log('created')
+    this.initMap()
   }
 }
-  </script>
+</script>
