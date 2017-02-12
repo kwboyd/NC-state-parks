@@ -3,6 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 
+const evt = new Vue()
+Vue.prototype.$evt = evt
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -1,5 +1,5 @@
 <template>
-  <select multiple id="waypoints">
+  <select :parks="parks" multiple id="waypoints">
     <option v-for='wp in wps' :value="wp.name">{{ wp.name }}</option>
   </select>
 </template>
@@ -13,7 +13,8 @@ export default {
         {name: 'Hanging Rock State Park'}
         ]
       }
-    }
+    },
+  props: ['parks']
 }
 </script>
 

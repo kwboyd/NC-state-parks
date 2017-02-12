@@ -14,7 +14,7 @@ google code was adapted to suit vue, webpack, and this project -->
   <br>
   <b>Waypoints:</b> <br>
   <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br>
-  <wpoption>
+  <wpoption :parks="parks">
   </wpoption>
   <br>
   <b>End:</b>
@@ -31,6 +31,97 @@ google code was adapted to suit vue, webpack, and this project -->
   </div>
 </div>
 </template>
+<script>
+import wpoption from './wpoption'
+export default {
+  data () {
+    return {
+      directionsDisplay: '',
+      directionsService: '',
+      dataLoadComplete: false
+      }
+  },
+  props:
+    ['parks'],
+  components: {
+    wpoption
+  },
+  methods: {
+    initMap: function () {
+    // creates the inital map display
+      console.log('inited')
+      console.log(this.parks)
+      console.log(this.parks[0].name)
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 6,
+        center: {lat: 41.85, lng: -87.65}
+      })
+      this.directionsService = new google.maps.DirectionsService
+      this.directionsDisplay = new google.maps.DirectionsRenderer
+      this.directionsDisplay.setMap(map)
+    },
+      createMap: function () {
+        //draws the route and displays directions
+        console.log('clicked')
+        var waypts = []
+        var checkboxArray = document.getElementById('waypoints')
+          for (var i = 0; i < checkboxArray.length; i++) {
+            if (checkboxArray.options[i].selected) {
+              waypts.push({
+                location: checkboxArray[i].value,
+                stopover: true
+              })
+            }
+          }
+        var currentService = this.directionsService
+        var currentDisplay = this.directionsDisplay
+        currentService.route({
+          //draws the route on the map
+          origin: document.getElementById('start').value,
+          destination: document.getElementById('end').value,
+          waypoints: waypts,
+          optimizeWaypoints: true,
+          travelMode: 'DRIVING'
+          }, function (response, status) {
+        if (status === 'OK') {
+              currentDisplay.setDirections(response)
+              var route = response.routes[0]
+              var summaryPanel = document.getElementById('directions-panel')
+              summaryPanel.innerHTML = ''
+              // For each route, display summary information.
+              for (var i = 0; i < route.legs.length; i++) {
+                var routeSegment = i + 1
+                summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+                    '</b><br>'
+                summaryPanel.innerHTML += route.legs[i].start_address + ' to '
+                summaryPanel.innerHTML += route.legs[i].end_address + '<br>'
+                summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>'
+              }
+            } else {
+              window.alert('Directions request failed due to ' + status)
+            }
+        })
+      }
+  },
+  mounted () {
+    console.log('googlemap -> mounted')
+    //listens for dataLoaded event
+    this.$evt.$on('dataLoaded', (function (){
+      this.$nextTick(() =>
+      //after the next 'tick' to the dom, emits dataLoadComplete event
+      this.$emit('dataLoadComplete')
+    )
+    }))
+    //listens for dataLoadComplete event, then launches initMap
+    this.$evt.$on('dataLoadComplete', this.initMap)
+},
+  beforeDestroy () {
+    console.log ('mapgoogle -> beforeDestroy')
+    this.$evt.$off('dataLoadComplete', this.initMap)
+    this.$evt.$off('dataLoaded')
+    }
+}
+</script>
 <style>
 #right-panel {
        font-family: 'Roboto','sans-serif';
@@ -75,76 +166,3 @@ google code was adapted to suit vue, webpack, and this project -->
        padding: 10px;
      }
 </style>
-<script>
-import wpoption from './wpoption'
-export default {
-  data () {
-    return {
-      directionsDisplay: '',
-      directionsService: ''
-      }
-  },
-  props:
-    ['parks'],
-  components: {
-    wpoption
-  },
-  methods: {
-    initMap: function () {
-      console.log('inited')
-      console.log(this.parks)
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 6,
-        center: {lat: 41.85, lng: -87.65}
-      })
-      this.directionsService = new google.maps.DirectionsService
-      this.directionsDisplay = new google.maps.DirectionsRenderer
-      this.directionsDisplay.setMap(map)
-    },
-      createMap: function () {
-        console.log('clicked')
-        var waypts = []
-        var checkboxArray = document.getElementById('waypoints')
-          for (var i = 0; i < checkboxArray.length; i++) {
-            if (checkboxArray.options[i].selected) {
-              waypts.push({
-                location: checkboxArray[i].value,
-                stopover: true
-              })
-            }
-          }
-        var currentService = this.directionsService
-        var currentDisplay = this.directionsDisplay
-        currentService.route({
-          origin: document.getElementById('start').value,
-          destination: document.getElementById('end').value,
-          waypoints: waypts,
-          optimizeWaypoints: true,
-          travelMode: 'DRIVING'
-          }, function (response, status) {
-        if (status === 'OK') {
-              currentDisplay.setDirections(response)
-              var route = response.routes[0]
-              var summaryPanel = document.getElementById('directions-panel')
-              summaryPanel.innerHTML = ''
-              // For each route, display summary information.
-              for (var i = 0; i < route.legs.length; i++) {
-                var routeSegment = i + 1
-                summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-                    '</b><br>'
-                summaryPanel.innerHTML += route.legs[i].start_address + ' to '
-                summaryPanel.innerHTML += route.legs[i].end_address + '<br>'
-                summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>'
-              }
-            } else {
-              window.alert('Directions request failed due to ' + status)
-            }
-        })
-      }
-  },
-  created () {
-    console.log('created')
-    this.initMap()
-  }
-}
-</script>
