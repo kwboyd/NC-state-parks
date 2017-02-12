@@ -89,30 +89,17 @@ export default {
     }
   },
   methods: {
-    callGoogle: function() {
-      var googlescript = document.createElement('script')
-      googlescript.setAttribute('type', 'text/javascript')
-      googlescript.async = true
-      googlescript.defer = true
-      googlescript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAvSWIBEUD5mSVcV5U1Ev51tkMp0ugWJk8')
-      document.getElementsByTagName('head')[0].appendChild(googlescript)
-      setTimeout(this.initMap, 6000);
-    },
     initMap: function() {
     console.log("inited")
       var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 6,
         center: {lat: 41.85, lng: -87.65}
       });
-      //console.log(map)
       this.directionsService = new google.maps.DirectionsService;
       this.directionsDisplay = new google.maps.DirectionsRenderer;
       this.directionsDisplay.setMap(map);
-    //  console.log(this.directionsService)
       },
       createMap: function() {
-        //console.log(this.directionsService)
-        //console.log(this.directionsDisplay)
           console.log("clicked")
           var waypts = [];
           var checkboxArray = document.getElementById('waypoints');
@@ -134,8 +121,6 @@ export default {
             travelMode: 'DRIVING'
           }, function(response, status) {
             if (status === 'OK') {
-          //  console.log(this.directionsService)
-          //console.log(response)
             currentDisplay.setDirections(response);
               var route = response.routes[0];
               var summaryPanel = document.getElementById('directions-panel');
@@ -157,8 +142,7 @@ export default {
   },
   created () {
   console.log("created")
-  this.callGoogle();
-  //this.initMap();
+  this.initMap();
   }
 }
   </script>
