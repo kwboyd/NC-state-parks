@@ -1,5 +1,5 @@
 <!-- much of this code comes from https://developers.google.com/maps/documentation/javascript/examples/directions-waypoints,
-google code was adapted to suit vue, webpack, and this project -->
+google code was adapted to suit vue, webpack, and this project. -->
 <template>
 <div :parks="parks">
   <div id="right-panel">
@@ -14,8 +14,11 @@ google code was adapted to suit vue, webpack, and this project -->
   <br>
   <b>Waypoints:</b> <br>
   <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br>
-  <wpoption :parks="parks">
-  </wpoption>
+  <select multiple id="waypoints">
+      <option v-for="park in parks" :value="park.name">{{ park.name }}</option>
+  </select>
+   <!-- <wpoption :parks="parks">
+  </wpoption>  -->
   <br>
   <b>End:</b>
   <select id="end">
@@ -43,9 +46,9 @@ export default {
   },
   props:
     ['parks'],
-  components: {
-    wpoption
-  },
+  // components: {
+  //   wpoption
+  // },
   methods: {
     initMap: function () {
     // creates the inital map display
@@ -108,8 +111,9 @@ export default {
     //listens for dataLoaded event
     this.$evt.$on('dataLoaded', (function (){
       this.$nextTick(() =>
-      //after the next 'tick' to the dom, emits dataLoadComplete event
-      this.$emit('dataLoadComplete')
+      //after the next 'tick'/change to the dom, emits dataLoadComplete event
+      //this avoids the dataLoaded event being emited too early before axios is complete
+      this.$evt.$emit('dataLoadComplete')
     )
     }))
     //listens for dataLoadComplete event, then launches initMap
