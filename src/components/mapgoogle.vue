@@ -68,15 +68,19 @@ export default {
 
       this.directionsService = new google.maps.DirectionsService
       this.directionsDisplay = new google.maps.DirectionsRenderer
-      for (var location in this.locations) {
-        //pushes coords from locations to markers and creates markers via google
-        this.markers.push (new google.maps.Marker({
-          position: this.locations[location],
-          map: map,
-          animation: google.maps.Animation.DROP
-        }))
-      }
-      this.directionsDisplay.setMap(map)
+      // for (var location in this.locations) {
+      //   //pushes coords from locations to markers and creates markers via google
+      //   var marker = (new google.maps.Marker({
+      //     position: this.locations[location],
+      //     map: map,
+      //     animation: google.maps.Animation.DROP
+      //   }))
+      //   marker.addListener('click', function(event){
+      //     this.$evt.$emit('markerClicked', this.marker)
+      //   })
+      //   this.markers.push(marker)
+      // }
+      this.directionsDisplay.setMap(this)
     },
       createMap: function () {
         //draws the route and displays directions

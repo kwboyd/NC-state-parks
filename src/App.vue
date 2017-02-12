@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <mapgoogle :parks="parks"></mapgoogle>
+    <info :parks="parks"></info>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import mapgoogle from './components/mapgoogle'
+import info from './components/info'
 export default {
   name: 'app',
   components: {
-    mapgoogle
+    mapgoogle,
+    info
   },
   data () {
     return {
@@ -27,11 +30,15 @@ export default {
         //  console.log(this.parks)
           this.$evt.$emit('dataLoaded')
       })
+    },
+    sayClicked () {
+      console.log('hello')
     }
   },
   mounted() {
     console.log('app -> mounted')
     this.getAxios()
+    this.$evt.$on('markerClicked', this.sayClicked())
   }
 }
 </script>
