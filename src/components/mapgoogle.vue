@@ -6,7 +6,7 @@ google code was adapted to suit vue, webpack, and this project. -->
   <div>
   <b>Start:</b>
   <select id="start">
-    <option value="Halifax, NS">Halifax, NS</option>
+    <option value="Chapel Hill, NC">Chapel Hill</option>
     <option value="Boston, MA">Boston, MA</option>
     <option value="New York, NY">New York, NY</option>
     <option value="Miami, FL">Miami, FL</option>
@@ -20,7 +20,7 @@ google code was adapted to suit vue, webpack, and this project. -->
   <br>
   <b>End:</b>
   <select id="end">
-    <option value="Vancouver, BC">Vancouver, BC</option>
+    <option value="Asheville, NC">Asheville</option>
     <option value="Seattle, WA">Seattle, WA</option>
     <option value="San Francisco, CA">San Francisco, CA</option>
     <option value="Los Angeles, CA">Los Angeles, CA</option>
@@ -41,7 +41,9 @@ export default {
       directionsService: '',
       dataLoadComplete: false,
       locations: [],
-      markers: []
+      markers: [],
+      map: '',
+      currentPolyline: ''
       }
   },
   props:
@@ -70,10 +72,11 @@ export default {
     initMap: function () {
     // creates the inital map display
       console.log('inited')
-      var map = new google.maps.Map(document.getElementById('map'), {
+      this.map = new google.maps.Map(document.getElementById('map'), {
         zoom: 6,
         center: {lat: 41.85, lng: -87.65}
       })
+      console.log(this.map)
 
       this.directionsService = new google.maps.DirectionsService
       this.directionsDisplay = new google.maps.DirectionsRenderer
@@ -81,15 +84,16 @@ export default {
         //pushes coords from locations to markers and creates markers via google
         var marker = (new google.maps.Marker({
           position: this.locations[location],
-          map: map,
+          map: this.map,
           animation: google.maps.Animation.DROP
         }))
         this.markers.push(marker)
       }
-      this.directionsDisplay.setMap(map)
+      this.directionsDisplay.setMap(this.map)
       this.addListeners()
     },
       createMap: function () {
+        console.log(this.map)
         //draws the route and displays directions
         console.log('submitted')
         var waypts = []
@@ -113,10 +117,41 @@ export default {
           travelMode: 'DRIVING'
           }, function (response, status) {
         if (status === 'OK') {
-              currentDisplay.setDirections(response)
+          console.log(response)
+              var polyline = new google.maps.Polyline({
+                  path: [],
+                  strokeColor: '#FF0000',
+                  strokeWeight: 3
+                });
+                var bounds = new google.maps.LatLngBounds();
+
+                var legs = response.routes[0].legs;
+                for (var q = 0; q < legs.length; q++) {
+                  var steps = legs[q].steps;
+                  for (var j = 0; j < steps.length; j++) {
+                    var nextSegment = steps[j].path;
+                    for (var k = 0; k < nextSegment.length; k++) {
+                      polyline.getPath().push(nextSegment[k]);
+                      bounds.extend(nextSegment[k]);
+                    }
+                  }
+                }
+                console.log(currentDisplay.map)
+                polyline.setMap(currentDisplay.map);
+            //  currentDisplay.setDirections(response)
               //displays the route
-              var route = response.routes[0]
-              console.log(route)
+            //  var route = response.routes[0]
+              //  var summaryPanel = document.getElementById('directions-panel')
+              // summaryPanel.innerHTML = ''
+              //  // For each route, display summary information.
+              //  for (var i = 0; i < route.legs.length; i++) {
+              //    var routeSegment = i + 1
+              //    summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+              //        '</b><br>'
+              //    summaryPanel.innerHTML += route.legs[i].start_address + ' to '
+              //    summaryPanel.innerHTML += route.legs[i].end_address + '<br>'
+              //    summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>'
+              //  }
             } else {
               window.alert('Directions request failed due to ' + status)
             }
