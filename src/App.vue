@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <mapgoogle :parks="parks"></mapgoogle>
+    <mapgoogle @markerClicked="sayClicked" :parks="parks"></mapgoogle>
     <info :parks="parks"></info>
   </div>
 </template>
@@ -31,14 +31,15 @@ export default {
           this.$evt.$emit('dataLoaded')
       })
     },
-    sayClicked () {
-      console.log('hello')
+    sayClicked (p) {
+    console.log('aiajdo')
+    //console.log(parksIndex)
+    console.log(p)
     }
   },
   mounted() {
     console.log('app -> mounted')
     this.getAxios()
-    this.$evt.$on('markerClicked', this.sayClicked())
   }
 }
 </script>

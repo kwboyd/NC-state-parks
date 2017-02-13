@@ -55,8 +55,17 @@ export default {
       for (var i in this.parks) {
         this.locations.push(this.parks[i].coords)
       }
-      console.log(this.locations)
       this.initMap()
+    },
+    addListeners() {
+      //uses google's addListener method to add events to the markers
+      for (var parksIndex in this.markers) {
+        ((parksIndex) => {
+        google.maps.event.addListener(this.markers[parksIndex], 'click', (() => {
+          this.$emit('markerClicked', parksIndex)
+        }))
+      })(parksIndex)
+      }
     },
     initMap: function () {
     // creates the inital map display
@@ -68,23 +77,21 @@ export default {
 
       this.directionsService = new google.maps.DirectionsService
       this.directionsDisplay = new google.maps.DirectionsRenderer
-      // for (var location in this.locations) {
-      //   //pushes coords from locations to markers and creates markers via google
-      //   var marker = (new google.maps.Marker({
-      //     position: this.locations[location],
-      //     map: map,
-      //     animation: google.maps.Animation.DROP
-      //   }))
-      //   marker.addListener('click', function(event){
-      //     this.$evt.$emit('markerClicked', this.marker)
-      //   })
-      //   this.markers.push(marker)
-      // }
-      this.directionsDisplay.setMap(this)
+      for (var location in this.locations) {
+        //pushes coords from locations to markers and creates markers via google
+        var marker = (new google.maps.Marker({
+          position: this.locations[location],
+          map: map,
+          animation: google.maps.Animation.DROP
+        }))
+        this.markers.push(marker)
+      }
+      this.directionsDisplay.setMap(map)
+      this.addListeners()
     },
       createMap: function () {
         //draws the route and displays directions
-        console.log('clicked')
+        console.log('submitted')
         var waypts = []
         var checkboxArray = document.getElementById('waypoints')
           for (var i = 0; i < checkboxArray.length; i++) {
@@ -98,7 +105,7 @@ export default {
         var currentService = this.directionsService
         var currentDisplay = this.directionsDisplay
         currentService.route({
-          //draws the route on the map
+          //sets the route via google
           origin: document.getElementById('start').value,
           destination: document.getElementById('end').value,
           waypoints: waypts,
@@ -107,18 +114,9 @@ export default {
           }, function (response, status) {
         if (status === 'OK') {
               currentDisplay.setDirections(response)
+              //displays the route
               var route = response.routes[0]
-              var summaryPanel = document.getElementById('directions-panel')
-              summaryPanel.innerHTML = ''
-              // For each route, display summary information.
-              for (var i = 0; i < route.legs.length; i++) {
-                var routeSegment = i + 1
-                summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-                    '</b><br>'
-                summaryPanel.innerHTML += route.legs[i].start_address + ' to '
-                summaryPanel.innerHTML += route.legs[i].end_address + '<br>'
-                summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>'
-              }
+              console.log(route)
             } else {
               window.alert('Directions request failed due to ' + status)
             }
