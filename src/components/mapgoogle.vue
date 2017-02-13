@@ -43,7 +43,9 @@ export default {
       locations: [],
       markers: [],
       map: '',
-      currentPolyline: ''
+      currentPolyline: '',
+      addedParkIndex: '',
+      waypts: []
       }
   },
   props:
@@ -89,35 +91,36 @@ export default {
         }))
         this.markers.push(marker)
       }
+      //draws the map
       this.directionsDisplay.setMap(this.map)
       this.addListeners()
     },
       createMap: function () {
-        console.log(this.map)
         //draws the route and displays directions
         console.log('submitted')
-        var waypts = []
-        var checkboxArray = document.getElementById('waypoints')
-          for (var i = 0; i < checkboxArray.length; i++) {
-            if (checkboxArray.options[i].selected) {
-              waypts.push({
-                location: checkboxArray[i].value,
-                stopover: true
-              })
-            }
-          }
+        // var waypts = []
+        // var checkboxArray = document.getElementById('waypoints')
+        //   for (var i = 0; i < checkboxArray.length; i++) {
+        //     if (checkboxArray.options[i].selected) {
+        //       waypts.push({
+        //         location: checkboxArray[i].value,
+        //         stopover: true
+        //       })
+        //     }
+        //   }
         var currentService = this.directionsService
         var currentDisplay = this.directionsDisplay
         currentService.route({
           //sets the route via google
           origin: document.getElementById('start').value,
           destination: document.getElementById('end').value,
-          waypoints: waypts,
+          waypoints: this.waypts,
           optimizeWaypoints: true,
           travelMode: 'DRIVING'
           }, function (response, status) {
         if (status === 'OK') {
           console.log(response)
+          // this code from http://stackoverflow.com/questions/16180104/get-a-polyline-from-google-maps-directions-v3
               var polyline = new google.maps.Polyline({
                   path: [],
                   strokeColor: '#FF0000',
@@ -136,8 +139,9 @@ export default {
                     }
                   }
                 }
-                console.log(currentDisplay.map)
-                polyline.setMap(currentDisplay.map);
+              //end code from stackoverflow
+            //draws the polyline for the route
+            polyline.setMap(currentDisplay.map);
             //  currentDisplay.setDirections(response)
               //displays the route
             //  var route = response.routes[0]
@@ -156,7 +160,13 @@ export default {
               window.alert('Directions request failed due to ' + status)
             }
         })
-      }
+      },
+  addClickedPark: function(currentParkIndex) {
+    //adds the park to the waypoints array
+    this.waypts.push({
+    location: this.parks[currentParkIndex].name,
+    stopover: true})
+  }
   },
   mounted () {
     console.log('googlemap -> mounted')
@@ -170,11 +180,14 @@ export default {
     }))
     //listens for dataLoadComplete event, then launches initMap
     this.$evt.$on('dataLoadComplete', this.pushMarkers)
+    //listens for a park to be added, then launches addClickedPark
+    this.$evt.$on('parkAdded', this.addClickedPark)
 },
   beforeDestroy () {
     console.log ('mapgoogle -> beforeDestroy')
     this.$evt.$off('dataLoadComplete', this.pushMarkers)
     this.$evt.$off('dataLoaded')
+    this.$evt.$off('parkAdded', this.addClickedPark)
     }
 }
 </script>

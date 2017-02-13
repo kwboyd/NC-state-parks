@@ -2,6 +2,7 @@
   <div :parks="parks" id="container">
       <h1> {{ parks[currentParkIndex].name }} </h1>
       <h2> {{ parks[currentParkIndex].description }} </h2>
+      <button class="btn" @click="addPark">Add</button>
   </div>
 </template>
 <script>
@@ -21,6 +22,10 @@ export default {
       //updates the index with the clicked park
       this.currentParkIndex = parksIndex
       console.log(this.currentParkIndex)
+    },
+    addPark: function () {
+      //emits the parkAdded event and passes the index of the park
+      this.$evt.$emit('parkAdded', this.currentParkIndex)
     }
   },
   mounted() {
@@ -39,5 +44,10 @@ data () {
  #container {
   position: absolute;
    top: 500px;
+ }
+ .button {
+   padding: 10px;
+   background-color: blue;
+   color: white;
  }
 </style>
