@@ -1,40 +1,36 @@
 <template>
-  <div :currentParkIndex="currentParkIndex" :parks="parks" id="container">
-      <h1> {{ parks[currentIndex] }} </h1>
-      <!-- <h2> {{ parks[currentParkIndex].description }} </h2> -->
+  <div :parks="parks" id="container">
+      <h1> {{ parks[currentParkIndex].name }} </h1>
+      <h2> {{ parks[currentParkIndex].description }} </h2>
   </div>
 </template>
 <script>
 export default {
   props: {
     parks: {
+      //defaults for before parks json is loaded
       default: [{
         "name": '',
         "description": '',
         "coords": ''
       }]
-    },
-  currentParkIndex: {
-    default: "0"
-  }
+    }
 },
   methods: {
-    updateParks: function() {
-      this.parkData = this.parks
-      console.log(this.parkData)
+    updateIndex: function(parksIndex) {
+      //updates the index with the clicked park
+      this.currentParkIndex = parksIndex
+      console.log(this.currentParkIndex)
     }
   },
   mounted() {
-  this.$evt.$on('dataLoadComplete', this.updateParks)
+  console.log('info -> mounted')
+  //listens for a marker to be clicked, updates index
+  this.$evt.$on('markerClicked', this.updateIndex)
 },
 data () {
   return {
-    currentIndex: 0,
-    parkData: [{
-      "name": '',
-      "description": '',
-      "coords": ''
-    }]
+    currentParkIndex: 0,
   }
 }
 }

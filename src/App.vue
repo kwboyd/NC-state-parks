@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <mapgoogle @markerClicked="passParkIndex" :parks="parks"></mapgoogle>
-    <info :currentParkIndex="currentParkIndex" :parks="parks"></info>
+    <mapgoogle :parks="parks"></mapgoogle>
+    <info :parks="parks"></info>
   </div>
 </template>
 
@@ -37,11 +37,6 @@ export default {
         //  console.log(this.parks)
           this.$evt.$emit('dataLoaded')
       })
-    },
-    passParkIndex (parksIndex) {
-    console.log('parksIndex passed to parent')
-    console.log(parksIndex)
-    this.currentParkIndex = parksIndex;
     }
   },
   mounted() {

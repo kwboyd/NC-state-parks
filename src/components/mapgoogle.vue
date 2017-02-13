@@ -62,7 +62,7 @@ export default {
       for (var parksIndex in this.markers) {
         ((parksIndex) => {
         google.maps.event.addListener(this.markers[parksIndex], 'click', (() => {
-          this.$emit('markerClicked', parksIndex)
+          this.$evt.$emit('markerClicked', parksIndex)
         }))
       })(parksIndex)
       }
