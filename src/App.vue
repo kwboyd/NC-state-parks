@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <mapgoogle @markerClicked="sayClicked" :parks="parks"></mapgoogle>
-    <info :parks="parks"></info>
+    <mapgoogle @markerClicked="passParkIndex" :parks="parks"></mapgoogle>
+    <info :currentParkIndex="currentParkIndex" :parks="parks"></info>
   </div>
 </template>
 
@@ -17,7 +17,14 @@ export default {
   },
   data () {
     return {
-      parks: []
+      parks: [
+        {
+        "name": '',
+        "description": '',
+        "coords": ''
+      }
+      ],
+      currentParkIndex: ''
     }
   },
   methods: {
@@ -31,10 +38,10 @@ export default {
           this.$evt.$emit('dataLoaded')
       })
     },
-    sayClicked (p) {
-    console.log('aiajdo')
-    //console.log(parksIndex)
-    console.log(p)
+    passParkIndex (parksIndex) {
+    console.log('parksIndex passed to parent')
+    console.log(parksIndex)
+    this.currentParkIndex = parksIndex;
     }
   },
   mounted() {

@@ -1,4 +1,4 @@
-<!-- much of this code comes from https://developers.google.com/maps/documentation/javascript/examples/directions-waypoints,
+<!-- some of this code comes from https://developers.google.com/maps/documentation/javascript/examples/directions-waypoints,
 google code was adapted to suit vue, webpack, and this project. -->
 <template>
 <div :parks="parks">
