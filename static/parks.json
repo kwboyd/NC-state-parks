@@ -5,7 +5,8 @@
   "coords": {
       "lat": 35.0960908,
       "lng": -82.9506875
-      }
+    },
+  "added": false
   },
 {
   "name": "Chimney Rock State Park",
@@ -13,6 +14,7 @@
   "coords": {
       "lat": 35.439988,
       "lng": -82.2500007
-    }
+    },
+  "added": false
   }
 ]

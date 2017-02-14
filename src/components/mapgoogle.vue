@@ -7,23 +7,10 @@ google code was adapted to suit vue, webpack, and this project. -->
   <b>Start:</b>
   <select id="start">
     <option value="Chapel Hill, NC">Chapel Hill</option>
-    <option value="Boston, MA">Boston, MA</option>
-    <option value="New York, NY">New York, NY</option>
-    <option value="Miami, FL">Miami, FL</option>
   </select>
   <br>
-  <b>Waypoints:</b> <br>
-  <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br>
-  <select multiple id="waypoints">
-      <option v-for="park in parks" :value="park.name">{{ park.name }}</option>
-  </select>
-  <br>
-  <b>End:</b>
   <select id="end">
     <option value="Asheville, NC">Asheville</option>
-    <option value="Seattle, WA">Seattle, WA</option>
-    <option value="San Francisco, CA">San Francisco, CA</option>
-    <option value="Los Angeles, CA">Los Angeles, CA</option>
   </select>
   <br>
     <input @click="createMap()" type="submit" id="submit">
@@ -45,7 +32,9 @@ export default {
       map: '',
       currentPolyline: '',
       addedParkIndex: '',
-      waypts: []
+      waypts: [],
+      polyline: [],
+      currentDisplay: ''
       }
   },
   props:
@@ -59,6 +48,11 @@ export default {
       for (var i in this.parks) {
         this.locations.push(this.parks[i].coords)
       }
+      this.polyline = new google.maps.Polyline({
+            path: [],
+            strokeColor: '#FF0000',
+            strokeWeight: 3
+          });
       this.initMap()
     },
     addListeners() {
@@ -66,6 +60,7 @@ export default {
       for (var parksIndex in this.markers) {
         ((parksIndex) => {
         google.maps.event.addListener(this.markers[parksIndex], 'click', (() => {
+          //emits markerClicked, passes parksIndex
           this.$evt.$emit('markerClicked', parksIndex)
         }))
       })(parksIndex)
@@ -78,7 +73,7 @@ export default {
         zoom: 6,
         center: {lat: 41.85, lng: -87.65}
       })
-      console.log(this.map)
+      //console.log(this.map)
 
       this.directionsService = new google.maps.DirectionsService
       this.directionsDisplay = new google.maps.DirectionsRenderer
@@ -95,54 +90,51 @@ export default {
       this.directionsDisplay.setMap(this.map)
       this.addListeners()
     },
-      createMap: function () {
+  drawLine: function(response, status, currentDisplay) {
+    //clears out the old polyline
+    this.polyline.setMap(null)
+    // this code from http://stackoverflow.com/questions/16180104/get-a-polyline-from-google-maps-directions-v3
+    this.polyline = new google.maps.Polyline({
+          path: [],
+          strokeColor: '#FF0000',
+          strokeWeight: 3
+        });
+        var bounds = new google.maps.LatLngBounds();
+
+        var legs = response.routes[0].legs;
+        for (var q = 0; q < legs.length; q++) {
+          var steps = legs[q].steps;
+          for (var j = 0; j < steps.length; j++) {
+            var nextSegment = steps[j].path;
+            for (var k = 0; k < nextSegment.length; k++) {
+              this.polyline.getPath().push(nextSegment[k]);
+              bounds.extend(nextSegment[k]);
+            }
+          }
+        }
+    //end code from stackoverflow
+    //draws the polyline for the route
+    this.polyline.setMap(currentDisplay.map)
+  },
+  createMap: function () {
         //draws the route and displays directions
         console.log('submitted')
-        // var waypts = []
-        // var checkboxArray = document.getElementById('waypoints')
-        //   for (var i = 0; i < checkboxArray.length; i++) {
-        //     if (checkboxArray.options[i].selected) {
-        //       waypts.push({
-        //         location: checkboxArray[i].value,
-        //         stopover: true
-        //       })
-        //     }
-        //   }
-        var currentService = this.directionsService
-        var currentDisplay = this.directionsDisplay
+        //sets 'this' to self so that 'this' can be used in the inline callback function
+        var self = this
+        var currentService = self.directionsService
+        var currentDisplay = self.directionsDisplay
         currentService.route({
           //sets the route via google
           origin: document.getElementById('start').value,
           destination: document.getElementById('end').value,
-          waypoints: this.waypts,
+          waypoints: self.waypts,
           optimizeWaypoints: true,
           travelMode: 'DRIVING'
-          }, function (response, status) {
+        }, function (response, status) {
         if (status === 'OK') {
-          console.log(response)
-          // this code from http://stackoverflow.com/questions/16180104/get-a-polyline-from-google-maps-directions-v3
-              var polyline = new google.maps.Polyline({
-                  path: [],
-                  strokeColor: '#FF0000',
-                  strokeWeight: 3
-                });
-                var bounds = new google.maps.LatLngBounds();
-
-                var legs = response.routes[0].legs;
-                for (var q = 0; q < legs.length; q++) {
-                  var steps = legs[q].steps;
-                  for (var j = 0; j < steps.length; j++) {
-                    var nextSegment = steps[j].path;
-                    for (var k = 0; k < nextSegment.length; k++) {
-                      polyline.getPath().push(nextSegment[k]);
-                      bounds.extend(nextSegment[k]);
-                    }
-                  }
-                }
-              //end code from stackoverflow
-            //draws the polyline for the route
-            polyline.setMap(currentDisplay.map);
-            //  currentDisplay.setDirections(response)
+          //emits a response because the scope is too narrow inside this function
+          self.$evt.$emit('responseOk', response, status, currentDisplay)
+                  //  currentDisplay.setDirections(response)
               //displays the route
             //  var route = response.routes[0]
               //  var summaryPanel = document.getElementById('directions-panel')
@@ -166,7 +158,11 @@ export default {
     this.waypts.push({
     location: this.parks[currentParkIndex].name,
     stopover: true})
-  }
+  },
+  removeClickedPark: function(currentParkIndex) {
+    //removes the parks from the waypoints array at the current index
+    this.waypts.splice(currentParkIndex, 1)
+    }
   },
   mounted () {
     console.log('googlemap -> mounted')
@@ -182,12 +178,18 @@ export default {
     this.$evt.$on('dataLoadComplete', this.pushMarkers)
     //listens for a park to be added, then launches addClickedPark
     this.$evt.$on('parkAdded', this.addClickedPark)
+    //listens for a park to be removed, then launches removeClickedPark
+    this.$evt.$on('parkRemoved', this.removeClickedPark)
+    //listens for the response from google, then draws the polyline and gets directions
+    this.$evt.$on('responseOk', this.drawLine)
 },
   beforeDestroy () {
     console.log ('mapgoogle -> beforeDestroy')
     this.$evt.$off('dataLoadComplete', this.pushMarkers)
     this.$evt.$off('dataLoaded')
     this.$evt.$off('parkAdded', this.addClickedPark)
+    this.$evt.$off('parkRemoved', this.removeClickedPark)
+    this.$evt.$on('responseOk', this.drawLine)
     }
 }
 </script>
