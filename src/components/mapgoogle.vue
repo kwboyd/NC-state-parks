@@ -67,8 +67,8 @@ export default {
       console.log('inited')
       //gets the map div and initializes a google map
       this.map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 6,
-        center: {lat: 41.85, lng: -87.65}
+        zoom: 7,
+        center: {lat: 35.91, lng: -79.05}
       })
       //loads the DirectionsService and DirectionsRenderer from google
       this.directionsService = new google.maps.DirectionsService
@@ -169,6 +169,7 @@ export default {
       this.$nextTick(() =>
       //after the next 'tick'/change to the dom, emits dataLoadComplete event
       //this avoids the dataLoaded event being emited too early before axios is complete
+      //setting defaults for parks and then calling pushMarkers after dataLoaded is emitted does not work
       this.$evt.$emit('dataLoadComplete')
     )
     }))

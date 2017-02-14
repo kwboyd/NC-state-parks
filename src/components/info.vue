@@ -1,9 +1,11 @@
 <template>
   <div :parks="parks" id="container">
+    <!-- checks if currentParkIndex is set to the preload default values -->
       <h1 v-if="currentParkIndex == 'preload'"> Pick a park </h1>
       <h1 v-else> {{ parks[currentParkIndex].name }} </h1>
       <h2 v-if="currentParkIndex == 'preload'"> Add a park </h2>
       <h2 v-else> {{ parks[currentParkIndex].description }} </h2>
+      <!-- displays add/remove buttons depending on if the clicked park has been added -->
       <span v-if="currentParkIndex == 'preload'"></span>
       <button class="btn" @click="addPark" v-else-if="!parks[currentParkIndex].added">Add</button>
       <button class="btn" @click="removePark" v-else-if="parks[currentParkIndex].added">Remove</button>
