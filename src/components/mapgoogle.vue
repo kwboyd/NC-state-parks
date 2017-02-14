@@ -32,7 +32,8 @@ export default {
       polyline: [],
       currentDisplay: '',
       start: '',
-      end: ''
+      end: '',
+      addedParks: []
     }
   },
   props:
@@ -154,13 +155,17 @@ export default {
     // adds the park to the waypoints array
       this.waypts.push({
         location: this.parks[currentParkIndex].name,
-        stopover: true})
-      this.$evt.$emit('wayptAdded', this.waypts)
+        stopover: true })
+      this.addedParks.push({
+        parkName: this.parks[currentParkIndex].name,
+        wayptParkIndex: currentParkIndex })
+      this.$evt.$emit('wayptAdded', this.addedParks)
     },
     removeClickedPark: function (currentParkIndex) {
     // removes the parks from the waypoints array at the current index
       this.waypts.splice(currentParkIndex, 1)
-      this.$evt.$emit('wayptRemoved', this.waypts)
+      this.addedParks.splice(currentParkIndex, 1)
+      this.$evt.$emit('wayptRemoved', this.addedParks)
     }
   },
   mounted () {

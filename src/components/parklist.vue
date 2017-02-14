@@ -1,7 +1,10 @@
 <template>
   <div>
     <div v-for="l in parkList">
-      <p v-show="parkList">{{ l.location }}<p>
+      <div v-show="parkList">
+        <p>{{ l.parkName }}<p>
+        <button class="btn" @click="removeParkFromList(l.wayptParkIndex)">Remove</button>
+      </div>
     </div>
   </div>
 </template>
@@ -14,9 +17,11 @@ export default {
     }
   },
   methods: {
-    updateParkList (waypts) {
-      this.parkList = waypts
-      console.log(this.parkList[0].location)
+    updateParkList (addedParks) {
+      this.parkList = addedParks
+    },
+    removeParkFromList (currentParkIndex) {
+      this.$evt.$emit('parkRemoved', currentParkIndex)
     }
   },
   mounted () {

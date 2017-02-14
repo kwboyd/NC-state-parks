@@ -40,11 +40,18 @@ export default {
           console.log(this.parks)
           this.$evt.$emit('dataLoaded')
         })
+    },
+    setParkRemoved (currentParkIndex) {
+      this.parks[currentParkIndex].added = false
     }
   },
   mounted () {
     console.log('app -> mounted')
     this.getAxios()
+    this.$evt.$on('parkRemoved', this.setParkRemoved)
+  },
+  beforeDestroy () {
+    this.$evt.$off('parkRemoved', this.setParkRemoved)
   }
 }
 </script>
