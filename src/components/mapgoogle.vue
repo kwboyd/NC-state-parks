@@ -152,19 +152,23 @@ export default {
       })
     },
     addClickedPark: function (currentParkIndex) {
-    // adds the park to the waypoints array
+    // adds the park to the waypoints array for google
       this.waypts.push({
         location: this.parks[currentParkIndex].name,
         stopover: true })
+    // adds the park to the addedParks array for other components
       this.addedParks.push({
         parkName: this.parks[currentParkIndex].name,
         wayptParkIndex: currentParkIndex })
+    // emits an event that a waypt has been added, passes addedParks
       this.$evt.$emit('wayptAdded', this.addedParks)
     },
     removeClickedPark: function (currentParkIndex) {
-    // removes the parks from the waypoints array at the current index
+    // removes the park from the waypoints array at the current index
       this.waypts.splice(currentParkIndex, 1)
+    // removes the park from the addedParks array at the current index
       this.addedParks.splice(currentParkIndex, 1)
+    // emits an event that a waypt has been removed, passes addedParks
       this.$evt.$emit('wayptRemoved', this.addedParks)
     }
   },

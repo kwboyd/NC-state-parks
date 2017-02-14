@@ -42,12 +42,14 @@ export default {
         })
     },
     setParkRemoved (currentParkIndex) {
+      // marks the park at the currentParkIndex as not being added
       this.parks[currentParkIndex].added = false
     }
   },
   mounted () {
     console.log('app -> mounted')
     this.getAxios()
+    // listens for a park to be removed, calls setParkRemoved
     this.$evt.$on('parkRemoved', this.setParkRemoved)
   },
   beforeDestroy () {
