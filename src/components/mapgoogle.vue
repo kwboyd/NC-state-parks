@@ -20,7 +20,6 @@ google code was adapted to suit vue, webpack, and this project. -->
 </div>
 </template>
 <script>
-import wpoption from './wpoption'
 export default {
   data () {
     return {
@@ -39,9 +38,6 @@ export default {
   },
   props:
     ['parks'],
-  // components: {
-  //   wpoption
-  // },
   methods: {
     pushMarkers: function () {
       //pushes coordinates from parks to locations index
@@ -69,12 +65,12 @@ export default {
     initMap: function () {
     // creates the inital map display
       console.log('inited')
+      //gets the map div and initializes a google map
       this.map = new google.maps.Map(document.getElementById('map'), {
         zoom: 6,
         center: {lat: 41.85, lng: -87.65}
       })
-      //console.log(this.map)
-
+      //loads the DirectionsService and DirectionsRenderer from google
       this.directionsService = new google.maps.DirectionsService
       this.directionsDisplay = new google.maps.DirectionsRenderer
       for (var location in this.locations) {
@@ -91,6 +87,7 @@ export default {
       this.addListeners()
     },
   drawLine: function(response, status, currentDisplay) {
+    //resets and then draws the polyline
     //clears out the old polyline
     this.polyline.setMap(null)
     // this code from http://stackoverflow.com/questions/16180104/get-a-polyline-from-google-maps-directions-v3
@@ -121,6 +118,7 @@ export default {
         console.log('submitted')
         //sets 'this' to self so that 'this' can be used in the inline callback function
         var self = this
+        //renames directionsService and directionsDisplay so it can be passed as arguments easier
         var currentService = self.directionsService
         var currentDisplay = self.directionsDisplay
         currentService.route({
@@ -132,7 +130,7 @@ export default {
           travelMode: 'DRIVING'
         }, function (response, status) {
         if (status === 'OK') {
-          //emits a response because the scope is too narrow inside this function
+          //emits a response because the scope is too narrow inside this function to call a method
           self.$evt.$emit('responseOk', response, status, currentDisplay)
                   //  currentDisplay.setDirections(response)
               //displays the route
@@ -189,7 +187,7 @@ export default {
     this.$evt.$off('dataLoaded')
     this.$evt.$off('parkAdded', this.addClickedPark)
     this.$evt.$off('parkRemoved', this.removeClickedPark)
-    this.$evt.$on('responseOk', this.drawLine)
+    this.$evt.$off('responseOk', this.drawLine)
     }
 }
 </script>

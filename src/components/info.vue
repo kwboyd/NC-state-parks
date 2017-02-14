@@ -18,11 +18,6 @@ export default {
       }]
     }
 },
-  // computed: {
-  //   parkStatus: function() {
-  //       return parks[currentParkIndex].added
-  //   }
-  // },
   methods: {
     updateIndex: function(parksIndex) {
       //updates the index with the clicked park
@@ -44,12 +39,16 @@ export default {
   console.log('info -> mounted')
   //listens for a marker to be clicked, updates index
   this.$evt.$on('markerClicked', this.updateIndex)
-},
-data () {
-  return {
-    currentParkIndex: 0,
+  },
+  beforeDestroy() {
+    console.log('info -> beforeDestroy')
+    this.$evt.$off('markerClicked', this.updateIndex)
+  },
+  data () {
+    return {
+      currentParkIndex: 0,
+    }
   }
-}
 }
 </script>
 <style scoped>
