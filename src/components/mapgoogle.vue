@@ -33,47 +33,47 @@ export default {
       currentDisplay: '',
       start: '',
       end: ''
-      }
+    }
   },
   props:
     ['parks'],
   methods: {
     pushMarkers: function () {
-      //pushes coordinates from parks to locations index
+      // pushes coordinates from parks to locations index
       for (var i in this.parks) {
         this.locations.push(this.parks[i].coords)
       }
       this.polyline = new google.maps.Polyline({
-            path: [],
-            strokeColor: '#FF0000',
-            strokeWeight: 3
-          });
+        path: [],
+        strokeColor: '#FF0000',
+        strokeWeight: 3
+      })
       this.initMap()
     },
-    addListeners() {
-      //uses google's addListener method to add events to the markers
+    addListeners () {
+      // uses google's addListener method to add events to the markers
       for (var parksIndex in this.markers) {
         ((parksIndex) => {
-        google.maps.event.addListener(this.markers[parksIndex], 'click', (() => {
-          //emits markerClicked, passes parksIndex
-          this.$evt.$emit('markerClicked', parksIndex)
-        }))
-      })(parksIndex)
+          google.maps.event.addListener(this.markers[parksIndex], 'click', () => {
+          // emits markerClicked, passes parksIndex
+            this.$evt.$emit('markerClicked', parksIndex)
+          })
+        })(parksIndex)
       }
     },
     initMap: function () {
     // creates the inital map display
       console.log('inited')
-      //gets the map div and initializes a google map
+      // gets the map div and initializes a google map
       this.map = new google.maps.Map(document.getElementById('map'), {
         zoom: 7,
         center: {lat: 35.91, lng: -79.05}
       })
-      //loads the DirectionsService and DirectionsRenderer from google
+      // loads the DirectionsService and DirectionsRenderer from google
       this.directionsService = new google.maps.DirectionsService
       this.directionsDisplay = new google.maps.DirectionsRenderer
       for (var location in this.locations) {
-        //pushes coords from locations to markers and creates markers via google
+        // pushes coords from locations to markers and creates markers via google
         var marker = (new google.maps.Marker({
           position: this.locations[location],
           map: this.map,
@@ -81,114 +81,116 @@ export default {
         }))
         this.markers.push(marker)
       }
-      //draws the map
+      // draws the map
       this.directionsDisplay.setMap(this.map)
       this.addListeners()
     },
-  drawLine: function(response, status, currentDisplay) {
-    //resets and then draws the polyline
-    //clears out the old polyline
-    this.polyline.setMap(null)
+    drawLine: function (response, status, currentDisplay) {
+    // resets and then draws the polyline
+    // clears out the old polyline
+      this.polyline.setMap(null)
     // this code from http://stackoverflow.com/questions/16180104/get-a-polyline-from-google-maps-directions-v3
-    this.polyline = new google.maps.Polyline({
-          path: [],
-          strokeColor: '#FF0000',
-          strokeWeight: 3
-        });
-        var bounds = new google.maps.LatLngBounds();
+      this.polyline = new google.maps.Polyline({
+        path: [],
+        strokeColor: '#FF0000',
+        strokeWeight: 3
+      })
+      var bounds = new google.maps.LatLngBounds()
 
-        var legs = response.routes[0].legs;
-        for (var q = 0; q < legs.length; q++) {
-          var steps = legs[q].steps;
-          for (var j = 0; j < steps.length; j++) {
-            var nextSegment = steps[j].path;
-            for (var k = 0; k < nextSegment.length; k++) {
-              this.polyline.getPath().push(nextSegment[k]);
-              bounds.extend(nextSegment[k]);
-            }
+      var legs = response.routes[0].legs
+      for (var q = 0; q < legs.length; q++) {
+        var steps = legs[q].steps
+        for (var j = 0; j < steps.length; j++) {
+          var nextSegment = steps[j].path
+          for (var k = 0; k < nextSegment.length; k++) {
+            this.polyline.getPath().push(nextSegment[k])
+            bounds.extend(nextSegment[k])
           }
         }
-    //end code from stackoverflow
-    //draws the polyline for the route
-    this.polyline.setMap(currentDisplay.map)
-  },
-  createMap: function () {
-        //draws the route and displays directions
-        console.log('submitted')
-        //sets 'this' to self so that 'this' can be used in the inline callback function
-        var self = this
-        //renames directionsService and directionsDisplay so it can be passed as arguments easier
-        var currentService = self.directionsService
-        var currentDisplay = self.directionsDisplay
-        currentService.route({
-          //sets the route via google
-          origin: this.start,
-          destination: this.end,
-          waypoints: self.waypts,
-          optimizeWaypoints: true,
-          travelMode: 'DRIVING'
-        }, function (response, status) {
+      }
+    // end code from stackoverflow
+    // draws the polyline for the route
+      this.polyline.setMap(currentDisplay.map)
+    },
+    createMap: function () {
+        // draws the route and displays directions
+      console.log('submitted')
+        // sets 'this' to self so that 'this' can be used in the inline callback function
+      var self = this
+        // renames directionsService and directionsDisplay so it can be passed as arguments easier
+      var currentService = self.directionsService
+      var currentDisplay = self.directionsDisplay
+      currentService.route({
+          // sets the route via google
+        origin: this.start,
+        destination: this.end,
+        waypoints: self.waypts,
+        optimizeWaypoints: true,
+        travelMode: 'DRIVING'
+      }, function (response, status) {
         if (status === 'OK') {
-          //emits a response because the scope is too narrow inside this function to call a method
+          // emits a response because the scope is too narrow inside this function to call a method
           self.$evt.$emit('responseOk', response, status, currentDisplay)
-                  //  currentDisplay.setDirections(response)
-              //displays the route
-            //  var route = response.routes[0]
-              //  var summaryPanel = document.getElementById('directions-panel')
+                  // currentDisplay.setDirections(response)
+              // displays the route
+            // var route = response.routes[0]
+              // var summaryPanel = document.getElementById('directions-panel')
               // summaryPanel.innerHTML = ''
-              //  // For each route, display summary information.
-              //  for (var i = 0; i < route.legs.length; i++) {
-              //    var routeSegment = i + 1
-              //    summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-              //        '</b><br>'
-              //    summaryPanel.innerHTML += route.legs[i].start_address + ' to '
-              //    summaryPanel.innerHTML += route.legs[i].end_address + '<br>'
-              //    summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>'
-              //  }
-            } else {
-              window.alert('Directions request failed due to ' + status)
-            }
-        })
-      },
-  addClickedPark: function(currentParkIndex) {
-    //adds the park to the waypoints array
-    this.waypts.push({
-    location: this.parks[currentParkIndex].name,
-    stopover: true})
-  },
-  removeClickedPark: function(currentParkIndex) {
-    //removes the parks from the waypoints array at the current index
-    this.waypts.splice(currentParkIndex, 1)
+              // For each route, display summary information.
+              // for (var i = 0; i < route.legs.length; i++) {
+              // var routeSegment = i + 1
+              // summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+              // '</b><br>'
+              // summaryPanel.innerHTML += route.legs[i].start_address + ' to '
+              // summaryPanel.innerHTML += route.legs[i].end_address + '<br>'
+              // summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>'
+              // }
+        } else {
+          window.alert('Directions request failed due to ' + status)
+        }
+      })
+    },
+    addClickedPark: function (currentParkIndex) {
+    // adds the park to the waypoints array
+      this.waypts.push({
+        location: this.parks[currentParkIndex].name,
+        stopover: true})
+      this.$evt.$emit('wayptAdded', this.waypts)
+    },
+    removeClickedPark: function (currentParkIndex) {
+    // removes the parks from the waypoints array at the current index
+      this.waypts.splice(currentParkIndex, 1)
+      this.$evt.$emit('wayptRemoved', this.waypts)
     }
   },
   mounted () {
     console.log('googlemap -> mounted')
-    //listens for dataLoaded event
-    this.$evt.$on('dataLoaded', (function (){
+    // listens for dataLoaded event
+    this.$evt.$on('dataLoaded', function () {
       this.$nextTick(() =>
-      //after the next 'tick'/change to the dom, emits dataLoadComplete event
-      //this avoids the dataLoaded event being emited too early before axios is complete
-      //setting defaults for parks and then calling pushMarkers after dataLoaded is emitted does not work
+      // after the next 'tick'/change to the dom, emits dataLoadComplete event
+      // this avoids the dataLoaded event being emited too early before axios is complete
+      // setting defaults for parks and then calling pushMarkers after dataLoaded is emitted does not work
       this.$evt.$emit('dataLoadComplete')
     )
-    }))
-    //listens for dataLoadComplete event, then launches initMap
+    })
+    // listens for dataLoadComplete event, then launches initMap
     this.$evt.$on('dataLoadComplete', this.pushMarkers)
-    //listens for a park to be added, then launches addClickedPark
+    // listens for a park to be added, then launches addClickedPark
     this.$evt.$on('parkAdded', this.addClickedPark)
-    //listens for a park to be removed, then launches removeClickedPark
+    // listens for a park to be removed, then launches removeClickedPark
     this.$evt.$on('parkRemoved', this.removeClickedPark)
-    //listens for the response from google, then draws the polyline and gets directions
+    // listens for the response from google, then draws the polyline and gets directions
     this.$evt.$on('responseOk', this.drawLine)
-},
+  },
   beforeDestroy () {
-    console.log ('mapgoogle -> beforeDestroy')
+    console.log('mapgoogle -> beforeDestroy')
     this.$evt.$off('dataLoadComplete', this.pushMarkers)
     this.$evt.$off('dataLoaded')
     this.$evt.$off('parkAdded', this.addClickedPark)
     this.$evt.$off('parkRemoved', this.removeClickedPark)
     this.$evt.$off('responseOk', this.drawLine)
-    }
+  }
 }
 </script>
 <style>

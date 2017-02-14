@@ -15,43 +15,43 @@
 export default {
   props: {
     parks: {
-      //defaults for before parks json is loaded
+      // defaults for before parks json is loaded
       default: [{
-        "name": 'Pick a park',
-        "description": 'Click a park',
-        "coords": ''
-        }]
+        'name': 'Pick a park',
+        'description': 'Click a park',
+        'coords': ''
+      }]
     }
-},
+  },
   methods: {
-    updateIndex: function(parksIndex) {
-      //updates the index with the clicked park
+    updateIndex: function (parksIndex) {
+      // updates the index with the clicked park
       this.currentParkIndex = parksIndex
       console.log(this.currentParkIndex)
     },
     addPark: function () {
-      //emits the parkAdded event and passes the index of the park
+      // emits the parkAdded event and passes the index of the park
       this.$evt.$emit('parkAdded', this.currentParkIndex)
       this.parks[this.currentParkIndex].added = true
     },
-    removePark: function() {
-      //emits the parkRemoved event and passes the index of the park
+    removePark: function () {
+      // emits the parkRemoved event and passes the index of the park
       this.$evt.$emit('parkRemoved', this.currentParkIndex)
       this.parks[this.currentParkIndex].added = false
     }
   },
-  mounted() {
-  console.log('info -> mounted')
-  //listens for a marker to be clicked, updates index
-  this.$evt.$on('markerClicked', this.updateIndex)
+  mounted () {
+    console.log('info -> mounted')
+  // listens for a marker to be clicked, updates index
+    this.$evt.$on('markerClicked', this.updateIndex)
   },
-  beforeDestroy() {
+  beforeDestroy () {
     console.log('info -> beforeDestroy')
     this.$evt.$off('markerClicked', this.updateIndex)
   },
   data () {
     return {
-      currentParkIndex: 'preload',
+      currentParkIndex: 'preload'
     }
   }
 }

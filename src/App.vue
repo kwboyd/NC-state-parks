@@ -2,6 +2,7 @@
   <div id="app">
     <mapgoogle :parks="parks"></mapgoogle>
     <info :parks="parks"></info>
+    <parklist></parklist>
   </div>
 </template>
 
@@ -9,37 +10,39 @@
 import axios from 'axios'
 import mapgoogle from './components/mapgoogle'
 import info from './components/info'
+import parklist from './components/parklist'
 export default {
   name: 'app',
   components: {
     mapgoogle,
-    info
+    info,
+    parklist
   },
   data () {
     return {
       parks: [
         {
-        "name": '',
-        "description": '',
-        "coords": ''
-      }
+          'name': '',
+          'description': '',
+          'coords': ''
+        }
       ],
       currentParkIndex: ''
     }
   },
   methods: {
     getAxios () {
-      //fetches park json
+      // fetches park json
       axios.get('/static/parks.json')
         .then((response) => {
-        //  console.log(response.data)
+          console.log(response.data)
           this.parks = response.data
-        //  console.log(this.parks)
+          console.log(this.parks)
           this.$evt.$emit('dataLoaded')
-      })
+        })
     }
   },
-  mounted() {
+  mounted () {
     console.log('app -> mounted')
     this.getAxios()
   }
