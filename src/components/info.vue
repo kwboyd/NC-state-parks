@@ -1,9 +1,12 @@
 <template>
   <div :parks="parks" id="container">
-      <h1> {{ parks[currentParkIndex].name }} </h1>
-      <h2> {{ parks[currentParkIndex].description }} </h2>
-      <button class="btn" @click="addPark" v-show="!parks[currentParkIndex].added">Add</button>
-      <button class="btn" @click="removePark" v-show="parks[currentParkIndex].added">Remove</button>
+      <h1 v-if="currentParkIndex == 'preload'"> Pick a park </h1>
+      <h1 v-else> {{ parks[currentParkIndex].name }} </h1>
+      <h2 v-if="currentParkIndex == 'preload'"> Add a park </h2>
+      <h2 v-else> {{ parks[currentParkIndex].description }} </h2>
+      <span v-if="currentParkIndex == 'preload'"></span>
+      <button class="btn" @click="addPark" v-else-if="!parks[currentParkIndex].added">Add</button>
+      <button class="btn" @click="removePark" v-else-if="parks[currentParkIndex].added">Remove</button>
   </div>
 </template>
 <script>
@@ -12,10 +15,10 @@ export default {
     parks: {
       //defaults for before parks json is loaded
       default: [{
-        "name": '',
-        "description": '',
+        "name": 'Pick a park',
+        "description": 'Click a park',
         "coords": ''
-      }]
+        }]
     }
 },
   methods: {
@@ -46,7 +49,7 @@ export default {
   },
   data () {
     return {
-      currentParkIndex: 0,
+      currentParkIndex: 'preload',
     }
   }
 }
