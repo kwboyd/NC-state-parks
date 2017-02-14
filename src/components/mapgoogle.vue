@@ -5,18 +5,15 @@ google code was adapted to suit vue, webpack, and this project. -->
   <div id="right-panel">
   <div>
   <b>Start:</b>
-  <select id="start">
-    <option value="Chapel Hill, NC">Chapel Hill</option>
-  </select>
+  <input v-model="start" placeholder="City, State OR Zip">
   <br>
-  <select id="end">
-    <option value="Asheville, NC">Asheville</option>
-  </select>
+  <b>End:</b>
+  <input v-model="end" placeholder="City, State OR Zip">
   <br>
-    <input @click="createMap()" type="submit" id="submit">
   </div>
   <div id="directions-panel"></div>
   </div>
+  <button class="btn" @click="createMap()">Update Map </button>
 </div>
 </template>
 <script>
@@ -33,7 +30,9 @@ export default {
       addedParkIndex: '',
       waypts: [],
       polyline: [],
-      currentDisplay: ''
+      currentDisplay: '',
+      start: '',
+      end: ''
       }
   },
   props:
@@ -123,8 +122,8 @@ export default {
         var currentDisplay = self.directionsDisplay
         currentService.route({
           //sets the route via google
-          origin: document.getElementById('start').value,
-          destination: document.getElementById('end').value,
+          origin: this.start,
+          destination: this.end,
           waypoints: self.waypts,
           optimizeWaypoints: true,
           travelMode: 'DRIVING'
@@ -234,5 +233,12 @@ export default {
        margin-top: 10px;
        background-color: #FFEE77;
        padding: 10px;
+     }
+     .btn {
+       padding: 10px;
+       background-color: teal;
+       color: white;
+       float: left;
+       margin-left: 30px;
      }
 </style>

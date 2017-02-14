@@ -61,9 +61,11 @@ export default {
   position: absolute;
    top: 500px;
  }
- .button {
+ .btn {
    padding: 10px;
-   background-color: blue;
+   background-color: teal;
    color: white;
+   float: left;
+   margin-left: 30px;
  }
 </style>
