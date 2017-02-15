@@ -1,10 +1,10 @@
 <template>
   <div>
     <!-- creates list of added parks -->
-    <div v-for="l in parkList">
+    <div v-for="park in parkList">
       <div v-show="parkList">
-        <p>{{ l.parkName }}<p>
-        <button class="btn" @click="removeParkFromList(l.wayptParkIndex)">Remove</button>
+        <p>{{ park.parkName }}<p>
+        <button class="btn" @click="removeParkFromList(park.wayptParkIndex)">Remove</button>
       </div>
     </div>
   </div>

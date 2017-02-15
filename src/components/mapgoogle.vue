@@ -2,17 +2,6 @@
 google code was adapted to suit vue, webpack, and this project. -->
 <template>
 <div :parks="parks">
-  <div id="right-panel">
-  <div>
-  <b>Start:</b>
-  <input v-model="start" placeholder="City, State OR Zip">
-  <br>
-  <b>End:</b>
-  <input v-model="end" placeholder="City, State OR Zip">
-  <br>
-  </div>
-  <div id="directions-panel"></div>
-  </div>
   <button class="btn" @click="createMap()">Update Map </button>
 </div>
 </template>
@@ -31,9 +20,10 @@ export default {
       waypts: [],
       polyline: [],
       currentDisplay: '',
+      addedParks: [],
       start: '',
       end: '',
-      addedParks: []
+      mpg: 25
     }
   },
   props:
@@ -97,7 +87,7 @@ export default {
         strokeWeight: 3
       })
       var bounds = new google.maps.LatLngBounds()
-
+      console.log(response.routes[0])
       var legs = response.routes[0].legs
       for (var q = 0; q < legs.length; q++) {
         var steps = legs[q].steps
@@ -170,6 +160,15 @@ export default {
       this.addedParks.splice(currentParkIndex, 1)
     // emits an event that a waypt has been removed, passes addedParks
       this.$evt.$emit('wayptRemoved', this.addedParks)
+    },
+    setStart: function (start) {
+      this.start = start
+    },
+    setEnd: function (end) {
+      this.end = end
+    },
+    setMpg: function (mpg) {
+      this.mpg = mpg
     }
   },
   mounted () {
@@ -191,6 +190,9 @@ export default {
     this.$evt.$on('parkRemoved', this.removeClickedPark)
     // listens for the response from google, then draws the polyline and gets directions
     this.$evt.$on('responseOk', this.drawLine)
+    this.$evt.$on('startUpdated', this.setStart)
+    this.$evt.$on('endUpdated', this.setEnd)
+    this.$evt.$on('mpgUpdated', this.setMpg)
   },
   beforeDestroy () {
     console.log('mapgoogle -> beforeDestroy')
@@ -199,6 +201,9 @@ export default {
     this.$evt.$off('parkAdded', this.addClickedPark)
     this.$evt.$off('parkRemoved', this.removeClickedPark)
     this.$evt.$off('responseOk', this.drawLine)
+    this.$evt.$off('startUpdated', this.setStart)
+    this.$evt.$off('endUpdated', this.setEnd)
+    this.$evt.$off('mpgUpdated', this.setMpg)
   }
 }
 </script>

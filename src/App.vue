@@ -1,8 +1,10 @@
 <template>
   <div id="app">
+    <questions></questions>
     <mapgoogle :parks="parks"></mapgoogle>
     <info :parks="parks"></info>
     <parklist></parklist>
+    <stats></stats>
   </div>
 </template>
 
@@ -11,12 +13,16 @@ import axios from 'axios'
 import mapgoogle from './components/mapgoogle'
 import info from './components/info'
 import parklist from './components/parklist'
+import stats from './components/stats'
+import questions from './components/questions'
 export default {
   name: 'app',
   components: {
     mapgoogle,
     info,
-    parklist
+    parklist,
+    stats,
+    questions
   },
   data () {
     return {
