@@ -1,7 +1,7 @@
 <!-- some of this code comes from https://developers.google.com/maps/documentation/javascript/examples/directions-waypoints,
 google code was adapted to suit vue, webpack, and this project. -->
 <template>
-<div :parks="parks">
+<div :addedParks="addedParks" :parks="parks">
   <button class="btn" @click="createMap()">Update Map </button>
 </div>
 </template>
@@ -20,14 +20,13 @@ export default {
       waypts: [],
       polyline: [],
       currentDisplay: '',
-      addedParks: [],
-      start: '',
-      end: '',
+      start: 'Chapel Hill, NC',
+      end: 'Chapel Hill, NC',
       mpg: 25
     }
   },
   props:
-    ['parks'],
+    ['parks', 'addedParks'],
   methods: {
     pushMarkers: function () {
       // pushes coordinates from parks to locations index
@@ -81,15 +80,19 @@ export default {
     // clears out the old polyline
       this.polyline.setMap(null)
     // this code from http://stackoverflow.com/questions/16180104/get-a-polyline-from-google-maps-directions-v3
+    // distance and duration code written by me though
       this.polyline = new google.maps.Polyline({
         path: [],
         strokeColor: '#FF0000',
         strokeWeight: 3
       })
       var bounds = new google.maps.LatLngBounds()
-      console.log(response.routes[0])
       var legs = response.routes[0].legs
+      var currentDistance = 0
+      var currentDuration = 0
       for (var q = 0; q < legs.length; q++) {
+        currentDistance = currentDistance + legs[q].distance.value
+        currentDuration = currentDuration + legs[q].duration.value
         var steps = legs[q].steps
         for (var j = 0; j < steps.length; j++) {
           var nextSegment = steps[j].path
@@ -102,6 +105,7 @@ export default {
     // end code from stackoverflow
     // draws the polyline for the route
       this.polyline.setMap(currentDisplay.map)
+      this.$evt.$emit('legsUpdated', currentDistance, currentDuration)
     },
     createMap: function () {
         // draws the route and displays directions
@@ -141,26 +145,39 @@ export default {
         }
       })
     },
-    addClickedPark: function (currentParkIndex) {
+    updateWaypoints: function (parkIndex) {
+      var waypoints = []
+      console.log(this.addedParks)
+      for (var q in this.addedParks) {
+        console.log(this.addedParks[q])
+        var waypoint = {
+          location: this.addedParks[q].name,
+          stopover: true
+        }
+         waypoints.push(waypoint)
+      }
+      console.log(waypoints)
+      this.waypts = waypoints
+      console.log(this.waypts)
     // adds the park to the waypoints array for google
-      this.waypts.push({
-        location: this.parks[currentParkIndex].name,
-        stopover: true })
+      // this.waypts.push({
+      //   location: this.parks[currentParkIndex].name,
+      //   stopover: true })
     // adds the park to the addedParks array for other components
-      this.addedParks.push({
-        parkName: this.parks[currentParkIndex].name,
-        wayptParkIndex: currentParkIndex })
+      // this.addedParks.push({
+      //   parkName: this.parks[currentParkIndex].name,
+      //   wayptParkIndex: currentParkIndex })
     // emits an event that a waypt has been added, passes addedParks
-      this.$evt.$emit('wayptAdded', this.addedParks)
+      //this.$evt.$emit('wayptAdded')
     },
-    removeClickedPark: function (currentParkIndex) {
-    // removes the park from the waypoints array at the current index
-      this.waypts.splice(currentParkIndex, 1)
-    // removes the park from the addedParks array at the current index
-      this.addedParks.splice(currentParkIndex, 1)
-    // emits an event that a waypt has been removed, passes addedParks
-      this.$evt.$emit('wayptRemoved', this.addedParks)
-    },
+    // removeClickedPark: function (currentParkIndex) {
+    // // removes the park from the waypoints array at the current index
+    //   this.waypts.splice(currentParkIndex, 1)
+    // // removes the park from the addedParks array at the current index
+    //   this.addedParks.splice(currentParkIndex, 1)
+    // // emits an event that a waypt has been removed, passes addedParks
+    //   this.$evt.$emit('wayptRemoved', this.addedParks)
+    // },
     setStart: function (start) {
       this.start = start
     },
@@ -185,9 +202,9 @@ export default {
     // listens for dataLoadComplete event, then launches initMap
     this.$evt.$on('dataLoadComplete', this.pushMarkers)
     // listens for a park to be added, then launches addClickedPark
-    this.$evt.$on('parkAdded', this.addClickedPark)
+    this.$evt.$on('parkAddComplete', this.updateWaypoints)
     // listens for a park to be removed, then launches removeClickedPark
-    this.$evt.$on('parkRemoved', this.removeClickedPark)
+    this.$evt.$on('parkRemoveComplete', this.updateWaypoints)
     // listens for the response from google, then draws the polyline and gets directions
     this.$evt.$on('responseOk', this.drawLine)
     this.$evt.$on('startUpdated', this.setStart)
@@ -198,8 +215,8 @@ export default {
     console.log('mapgoogle -> beforeDestroy')
     this.$evt.$off('dataLoadComplete', this.pushMarkers)
     this.$evt.$off('dataLoaded')
-    this.$evt.$off('parkAdded', this.addClickedPark)
-    this.$evt.$off('parkRemoved', this.removeClickedPark)
+    this.$evt.$off('parkAddComplete', this.updateWaypoints)
+    this.$evt.$off('parkRemoveComplete', this.updateWaypoints)
     this.$evt.$off('responseOk', this.drawLine)
     this.$evt.$off('startUpdated', this.setStart)
     this.$evt.$off('endUpdated', this.setEnd)

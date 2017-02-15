@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <questions></questions>
-    <mapgoogle :parks="parks"></mapgoogle>
-    <info :parks="parks"></info>
-    <parklist></parklist>
+    <mapgoogle :addedParks="addedParks" :parks="parks"></mapgoogle>
+    <info :addedParks="addedParks" :parks="parks"></info>
+    <parklist :addedParks="addedParks"></parklist>
     <stats></stats>
   </div>
 </template>
@@ -33,7 +33,7 @@ export default {
           'coords': ''
         }
       ],
-      currentParkIndex: ''
+      addedParks: []
     }
   },
   methods: {
@@ -47,9 +47,20 @@ export default {
           this.$evt.$emit('dataLoaded')
         })
     },
-    setParkRemoved (currentParkIndex) {
+    setParkRemoved (parkIndex) {
       // marks the park at the currentParkIndex as not being added
-      this.parks[currentParkIndex].added = false
+      this.parks[parkIndex].added = false
+      for (var t in this.addedParks) {
+        if (this.parks[parkIndex].name === this.addedParks[t].name) {
+          this.addedParks.splice(t, 1)
+        }
+      }
+      this.$evt.$emit('parkRemoveComplete', parkIndex)
+    },
+    setParkAdded (parkIndex) {
+      this.parks[parkIndex].added = true
+      this.addedParks.push(this.parks[parkIndex])
+      this.$evt.$emit('parkAddComplete', parkIndex)
     }
   },
   mounted () {
@@ -57,9 +68,11 @@ export default {
     this.getAxios()
     // listens for a park to be removed, calls setParkRemoved
     this.$evt.$on('parkRemoved', this.setParkRemoved)
+    this.$evt.$on('parkAdded', this.setParkAdded)
   },
   beforeDestroy () {
     this.$evt.$off('parkRemoved', this.setParkRemoved)
+    this.$evt.$off('parkAdded', this.setParkAdded)
   }
 }
 </script>

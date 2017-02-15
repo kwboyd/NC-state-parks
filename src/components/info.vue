@@ -1,5 +1,5 @@
 <template>
-  <div :parks="parks" id="container">
+  <div :addedParks="addedParks" :parks="parks" id="container">
     <!-- checks if currentParkIndex is set to the preload default values -->
       <h1 v-if="currentParkIndex == 'preload'"> Pick a park </h1>
       <h1 v-else> {{ parks[currentParkIndex].name }} </h1>
@@ -7,37 +7,26 @@
       <h2 v-else> {{ parks[currentParkIndex].description }} </h2>
       <!-- displays add/remove buttons depending on if the clicked park has been added -->
       <span v-if="currentParkIndex == 'preload'"></span>
-      <button class="btn" @click="addPark" v-else-if="!parks[currentParkIndex].added">Add</button>
-      <button class="btn" @click="removePark" v-else-if="parks[currentParkIndex].added">Remove</button>
+      <button class="btn" @click="addPark(parks[currentParkIndex].number)" v-else-if="!parks[currentParkIndex].added">Add</button>
+      <button class="btn" @click="removePark(parks[currentParkIndex].number)" v-else-if="parks[currentParkIndex].added">Remove</button>
   </div>
 </template>
 <script>
 export default {
-  props: {
-    parks: {
-      // defaults for before parks json is loaded
-      default: [{
-        'name': 'Pick a park',
-        'description': 'Click a park',
-        'coords': ''
-      }]
-    }
-  },
+  props: ['parks', 'addedParks'],
   methods: {
     updateIndex: function (parksIndex) {
       // updates the index with the clicked park
       this.currentParkIndex = parksIndex
       console.log(this.currentParkIndex)
     },
-    addPark: function () {
+    addPark: function (parkNumber) {
       // emits the parkAdded event and passes the index of the park
-      this.$evt.$emit('parkAdded', this.currentParkIndex)
-      this.parks[this.currentParkIndex].added = true
+      this.$evt.$emit('parkAdded', parkNumber)
     },
-    removePark: function () {
+    removePark: function (parkNumber) {
       // emits the parkRemoved event and passes the index of the park
-      this.$evt.$emit('parkRemoved', this.currentParkIndex)
-      this.parks[this.currentParkIndex].added = false
+      this.$evt.$emit('parkRemoved', parkNumber)
     }
   },
   mounted () {
@@ -58,8 +47,7 @@ export default {
 </script>
 <style scoped>
  #container {
-  position: absolute;
-   top: 500px;
+   float: right;
  }
  .btn {
    padding: 10px;

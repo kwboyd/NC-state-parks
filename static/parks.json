@@ -1,5 +1,6 @@
 [
   {
+  "number": 0,
   "name": "Gorges State Park",
   "description": "very pretty",
   "coords": {
@@ -9,6 +10,7 @@
   "added": false
   },
 {
+  "number": 1,
   "name": "Chimney Rock State Park",
   "description": "such beautiful",
   "coords": {

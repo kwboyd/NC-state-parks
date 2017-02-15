@@ -16,8 +16,8 @@ export default {
   data () {
     return {
       mpg: 25,
-      end: '',
-      start: ''
+      end: 'Chapel Hill, NC',
+      start: 'Chapel Hill, NC'
     }
   },
   methods: {
