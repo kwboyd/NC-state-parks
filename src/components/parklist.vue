@@ -5,7 +5,7 @@
       <!-- if the addedParks array isn't empty, display that park in the list -->
       <div class="list-item" v-for="park in addedParks" v-show="addedParks.length > 0">
         <!-- passes the number property of the clicked park, which equals the park's index in the parks array -->
-        <button class="btn" @click="removeParkFromList(park.number)">Remove</button>
+        <button class="button" @click="removeParkFromList(park.number)">Remove</button>
         <p>{{ park.name }}<p>
       </div>
     </ul>

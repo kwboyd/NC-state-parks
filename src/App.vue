@@ -10,6 +10,8 @@
       <stats style="background-color:gray;"></stats>
       <parklist :addedParks="addedParks" style="background-color:cyan;"></parklist>
     </div>
+    <button class="button" @click="modalOpen">Credits</button>
+    <credits></credits>
   </div>
 </template>
 
@@ -20,6 +22,7 @@ import info from './components/info'
 import parklist from './components/parklist'
 import stats from './components/stats'
 import questions from './components/questions'
+import credits from './components/credits'
 export default {
   name: 'app',
   components: {
@@ -27,7 +30,8 @@ export default {
     info,
     parklist,
     stats,
-    questions
+    questions,
+    credits
   },
   data () {
     return {
@@ -72,6 +76,9 @@ export default {
     emitUpdate () {
       // emits an event to update the map
       this.$evt.$emit('updateClicked')
+    },
+    modalOpen () {
+      this.$evt.$emit('openModal')
     }
   },
   mounted () {
@@ -96,10 +103,5 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-}
-.btn {
-  padding: 10px;
-  background-color: teal;
-  color: white;
 }
 </style>

@@ -18,8 +18,8 @@ export default {
       map: '',
       waypts: [],
       polyline: [],
-      start: 'Chapel Hill, NC',
-      end: 'Chapel Hill, NC'
+      startPlace: 'Chapel Hill, NC',
+      endPlace: 'Chapel Hill, NC'
     }
   },
   props:
@@ -113,8 +113,8 @@ export default {
       var currentDisplay = self.directionsDisplay
       currentService.route({
           // sets the route via google
-        origin: this.start,
-        destination: this.end,
+        origin: this.startPlace,
+        destination: this.endPlace,
         waypoints: self.waypts,
         optimizeWaypoints: true,
         travelMode: 'DRIVING'
@@ -150,17 +150,17 @@ export default {
           location: this.addedParks[i].name,
           stopover: true
         }
-         waypoints.push(waypoint)
+        waypoints.push(waypoint)
       }
       this.waypts = waypoints
     },
-    setStart: function (start) {
+    setStart: function (startPlace) {
       // updates the starting location
-      this.start = start
+      this.startPlace = startPlace
     },
-    setEnd: function (end) {
+    setEnd: function (endPlace) {
       // updates the ending location
-      this.end = end
+      this.endPlace = endPlace
     }
   },
   mounted () {

@@ -1,7 +1,8 @@
 <template>
   <div class="column is-one-third">
-    <p> Distance: {{ distance }} </p>
-    <p> Driving time: {{ duration }} </p>
+    <h2>Your trip:</h2>
+    <p> Total distance: {{ distance }} </p>
+    <p> Total driving time: {{ duration }} </p>
   </div>
 </template>
 

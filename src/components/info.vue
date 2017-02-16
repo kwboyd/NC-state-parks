@@ -1,16 +1,22 @@
 <template>
   <div id="info-container" class="column" :addedParks="addedParks" :parks="parks">
     <!-- displays add/remove buttons depending on if the clicked park has been added, also checks if the currentParkIndex is at preload-->
-    <div id="park-name-box">
-      <span v-if="currentParkIndex == 'preload'"></span>
+    <span v-if="currentParkIndex == 'preload'"></span>
+    <div v-else id="park-button-box">
       <!-- passes the number property of the displayed park, which matches the index of the park in the parks array -->
-      <button class="btn" @click="addPark(parks[currentParkIndex].number)" v-else-if="!parks[currentParkIndex].added">Add</button>
-      <button class="btn" @click="removePark(parks[currentParkIndex].number)" v-else-if="parks[currentParkIndex].added">Remove</button>
-      <h1 v-if="currentParkIndex == 'preload'"> Pick a park </h1>
-      <h1 v-else> {{ parks[currentParkIndex].name }} </h1>
+      <button class="button" @click="addPark(parks[currentParkIndex].number)" v-if="!parks[currentParkIndex].added">Add to route</button>
+      <button class="button" @click="removePark(parks[currentParkIndex].number)" v-else="parks[currentParkIndex].added">Remove</button>
+      <p>Scroll within this box to learn about this park.</p>
     </div>
-      <h2 v-if="currentParkIndex == 'preload'"> Add a park </h2>
-      <h2 v-else> {{ parks[currentParkIndex].description }} </h2>
+    <div id="park-info-box" v-if="currentParkIndex == 'preload'">
+      <h1> Pick a park </h1>
+      <h2> Add a park </h2>
+    </div>
+    <div id="park-info-box" v-else>
+      <h1> {{ parks[currentParkIndex].name }} </h1>
+      <img :src="parks[currentParkIndex].image" :alt="parks[currentParkIndex].name">
+      <h2> {{ parks[currentParkIndex].description }} </h2>
+    </div>
   </div>
 </template>
 <script>
@@ -47,13 +53,16 @@ export default {
 }
 </script>
 <style>
-#park-name-box {
-  display: flex;
-  align-items: center;
-}
 #info-container {
   max-height: 275px;
   overflow: scroll;
   margin-right: 25px;
+}
+#park-button-box {
+  display: flex;
+  align-items: center;
+}
+#park-button-box p {
+  font-size: .85em;
 }
 </style>
