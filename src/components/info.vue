@@ -1,5 +1,5 @@
 <template>
-  <div :addedParks="addedParks" :parks="parks" class="column">
+  <div id="info-container" class="column" :addedParks="addedParks" :parks="parks">
     <!-- displays add/remove buttons depending on if the clicked park has been added -->
     <div id="park-name-box">
       <span v-if="currentParkIndex == 'preload'"></span>
@@ -47,9 +47,14 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style>
 #park-name-box {
   display: flex;
   align-items: center;
+}
+#info-container {
+  max-height: 275px;
+  overflow: scroll;
+  margin-right: 25px;
 }
 </style>

@@ -1,7 +1,7 @@
 <!-- some of this code comes from https://developers.google.com/maps/documentation/javascript/examples/directions-waypoints,
 google code was adapted to suit vue, webpack, and this project. -->
 <template>
-  <div id="map-wrapper" class="column is-two-thirds" :addedParks="addedParks" :parks="parks">
+  <div id="map-wrapper" class="column is-half" :addedParks="addedParks" :parks="parks">
     <div id="map-inner-wrapper">
       <div id="map"></div>
     </div>
@@ -243,6 +243,7 @@ export default {
      }
      #map-wrapper {
        min-height: 100%;
+       margin-left: 25px;
      }
      #map {
        height: 275px;
