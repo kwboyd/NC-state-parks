@@ -54,9 +54,13 @@ export default {
 </script>
 <style>
 #info-container {
-  max-height: 275px;
+  max-height: 302px;
   overflow: scroll;
-  margin-right: 25px;
+  border-width: 3px;
+  border-radius: 8px;
+  border-style: solid;
+  border-color: #fff;
+  background: #fff;
 }
 #park-button-box {
   display: flex;

@@ -1,9 +1,11 @@
 <!-- some of this code comes from https://developers.google.com/maps/documentation/javascript/examples/directions-waypoints,
 google code was adapted to suit vue, webpack, and this project. -->
 <template>
-  <div id="map-wrapper" class="column is-half" :addedParks="addedParks" :parks="parks">
-    <div id="map-inner-wrapper">
-      <div id="map"></div>
+  <div id="map-container" class="column is-half" :addedParks="addedParks" :parks="parks">
+    <div id="map-wrapper">
+      <div id="map-inner-wrapper">
+        <div id="map"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -30,7 +32,7 @@ export default {
       for (var parksIndex in this.parks) {
         this.locations.push(this.parks[parksIndex].coords)
       }
-      this.polyline = new google.maps.Polyline({
+      this.polyline = new window.google.maps.Polyline({
         path: [],
         strokeColor: '#FF0000',
         strokeWeight: 3
@@ -41,7 +43,7 @@ export default {
       // uses google's addListener method to add events to the markers
       for (var parksIndex in this.markers) {
         ((parksIndex) => {
-          google.maps.event.addListener(this.markers[parksIndex], 'click', () => {
+          window.google.maps.event.addListener(this.markers[parksIndex], 'click', () => {
           // emits markerClicked, passes parksIndex
             this.$evt.$emit('markerClicked', parksIndex)
           })
@@ -52,19 +54,19 @@ export default {
     // creates the inital map display
       console.log('inited')
       // gets the map div and initializes a google map
-      this.map = new google.maps.Map(document.getElementById('map'), {
+      this.map = new window.google.maps.Map(document.getElementById('map'), {
         zoom: 6,
         center: {lat: 35.40, lng: -79.78}
       })
       // loads the DirectionsService and DirectionsRenderer from google
-      this.directionsService = new google.maps.DirectionsService
-      this.directionsDisplay = new google.maps.DirectionsRenderer
+      this.directionsService = new window.google.maps.DirectionsService()
+      this.directionsDisplay = new window.google.maps.DirectionsRenderer()
       for (var i in this.locations) {
         // pushes coords from locations to markers and creates markers via google
-        var marker = (new google.maps.Marker({
+        var marker = (new window.google.maps.Marker({
           position: this.locations[i],
           map: this.map,
-          animation: google.maps.Animation.DROP
+          animation: window.google.maps.Animation.DROP
         }))
         this.markers.push(marker)
       }
@@ -78,12 +80,12 @@ export default {
       this.polyline.setMap(null)
     // this code from http://stackoverflow.com/questions/16180104/get-a-polyline-from-google-maps-directions-v3
     // distance and duration code written by me though
-      this.polyline = new google.maps.Polyline({
+      this.polyline = new window.google.maps.Polyline({
         path: [],
         strokeColor: '#FF0000',
         strokeWeight: 3
       })
-      var bounds = new google.maps.LatLngBounds()
+      var bounds = new window.google.maps.LatLngBounds()
       var legs = response.routes[0].legs
       var currentDistance = 0
       var currentDuration = 0
@@ -195,9 +197,16 @@ export default {
 }
 </script>
 <style>
+    #map-container {
+      border-radius: 8px;
+      background-color: #fff;
+    }
      #map-wrapper {
        min-height: 100%;
        margin-left: 25px;
+       padding: 0;
+       margin-right: 12px;
+       border-radius: 8px;
      }
      #map {
        height: 275px;

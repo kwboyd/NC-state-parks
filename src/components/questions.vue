@@ -1,12 +1,12 @@
 <template>
   <div class="level">
-    <div class="level-item">
-      <p>Starting location</p>
-      <input v-model="startPlace" placeholder="City, State OR Zip" @input="updateStart">
+    <div class="level-item question">
+      <p>Starting location: &nbsp</p>
+      <input class="place-input" v-model="startPlace" placeholder="City, State OR Zip" @input="updateStart">
     </div>
-    <div class="level-item">
-      <p>Ending location</p>
-      <input v-model="endPlace" placeholder="City, State OR Zip" @input="updateEnd">
+    <div class="level-item question">
+      <p>Ending location: &nbsp</p>
+      <input class="place-input" v-model="endPlace" placeholder="City, State OR Zip" @input="updateEnd">
     </div>
   </div>
 </template>
@@ -33,4 +33,15 @@ export default {
 </script>
 
 <style>
+.question {
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.place-input {
+  align-self: stretch;
+  padding-left: 5px;
+}
+
 </style>

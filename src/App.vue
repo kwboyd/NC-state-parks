@@ -1,10 +1,11 @@
 <template>
   <div id="app">
-    <button class="btn" @click="emitUpdate">Update Map </button>
-      <questions style="background-color:green;"></questions>
+    <div class="container">
+      <button class="btn" @click="emitUpdate">Update Map </button>
+      <questions></questions>
     <div class="columns">
       <mapgoogle :addedParks="addedParks" :parks="parks"></mapgoogle>
-      <info style="background-color:pink;" :addedParks="addedParks" :parks="parks"></info>
+      <info :addedParks="addedParks" :parks="parks"></info>
     </div>
     <div class="columns">
       <stats style="background-color:gray;"></stats>
@@ -12,6 +13,7 @@
     </div>
     <button class="button" @click="modalOpen">Credits</button>
     <credits></credits>
+  </div>
   </div>
 </template>
 
@@ -103,5 +105,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  background-image: linear-gradient(to top, #9be15d 0%, #00e3ae 100%);
+}
+.column {
+  margin: 10px 20px;
 }
 </style>
