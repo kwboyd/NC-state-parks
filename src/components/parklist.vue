@@ -1,10 +1,10 @@
 <template>
-  <div class="panel" :addedParks="addedParks">
+  <div class="column is-two-thirds":addedParks="addedParks">
     <!-- creates list of added parks -->
-    <div class="panel-block" v-for="park in addedParks">
-      <div v-show="addedParks.length > 0">
-        <p>{{ park.name }}<p>
+    <div class="list-items" v-for="park in addedParks">
+      <div class="list-item" v-show="addedParks.length > 0">
         <button class="btn" @click="removeParkFromList(park.number)">Remove</button>
+        <p>{{ park.name }}<p>
       </div>
     </div>
   </div>
@@ -23,4 +23,14 @@ export default {
 </script>
 
 <style>
+  .list-items {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .list-item {
+    flex: 1 0 25%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+  }
 </style>

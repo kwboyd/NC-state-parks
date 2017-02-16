@@ -1,12 +1,15 @@
 <template>
   <div id="app">
-    <questions></questions>
-  <div class="columns">
-    <mapgoogle :addedParks="addedParks" :parks="parks"></mapgoogle>
-    <info :addedParks="addedParks" :parks="parks"></info>
-  </div>
-    <parklist :addedParks="addedParks"></parklist>
-    <stats></stats>
+    <button class="btn" @click="emitUpdate">Update Map </button>
+      <questions style="background-color:green;"></questions>
+    <div class="columns">
+      <mapgoogle :addedParks="addedParks" :parks="parks"></mapgoogle>
+      <info style="background-color:pink;" :addedParks="addedParks" :parks="parks"></info>
+    </div>
+    <div class="columns">
+      <stats style="background-color:gray;"></stats>
+      <parklist :addedParks="addedParks" style="background-color:cyan;"></parklist>
+    </div>
   </div>
 </template>
 
@@ -63,6 +66,9 @@ export default {
       this.parks[parkIndex].added = true
       this.addedParks.push(this.parks[parkIndex])
       this.$evt.$emit('parkAddComplete', parkIndex)
+    },
+    emitUpdate () {
+      this.$evt.$emit('updateClicked')
     }
   },
   mounted () {
@@ -87,5 +93,11 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.btn {
+  padding: 10px;
+  background-color: teal;
+  color: white;
+  margin-left: 30px;
 }
 </style>

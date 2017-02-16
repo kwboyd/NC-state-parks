@@ -1,14 +1,16 @@
 <template>
   <div :addedParks="addedParks" :parks="parks" class="column">
-    <!-- checks if currentParkIndex is set to the preload default values -->
-      <h1 v-if="currentParkIndex == 'preload'"> Pick a park </h1>
-      <h1 v-else> {{ parks[currentParkIndex].name }} </h1>
-      <h2 v-if="currentParkIndex == 'preload'"> Add a park </h2>
-      <h2 v-else> {{ parks[currentParkIndex].description }} </h2>
-      <!-- displays add/remove buttons depending on if the clicked park has been added -->
+    <!-- displays add/remove buttons depending on if the clicked park has been added -->
+    <div id="park-name-box">
       <span v-if="currentParkIndex == 'preload'"></span>
       <button class="btn" @click="addPark(parks[currentParkIndex].number)" v-else-if="!parks[currentParkIndex].added">Add</button>
       <button class="btn" @click="removePark(parks[currentParkIndex].number)" v-else-if="parks[currentParkIndex].added">Remove</button>
+    <!-- checks if currentParkIndex is set to the preload default values -->
+      <h1 v-if="currentParkIndex == 'preload'"> Pick a park </h1>
+      <h1 v-else> {{ parks[currentParkIndex].name }} </h1>
+    </div>
+      <h2 v-if="currentParkIndex == 'preload'"> Add a park </h2>
+      <h2 v-else> {{ parks[currentParkIndex].description }} </h2>
   </div>
 </template>
 <script>
@@ -46,11 +48,8 @@ export default {
 }
 </script>
 <style scoped>
- .btn {
-   padding: 10px;
-   background-color: teal;
-   color: white;
-   float: left;
-   margin-left: 30px;
- }
+#park-name-box {
+  display: flex;
+  align-items: center;
+}
 </style>

@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <p>hello</p>
+  <div class="column is-one-third">
     <p> Distance: {{ distance }} </p>
     <p> Driving time: {{ duration }} </p>
   </div>

@@ -5,9 +5,7 @@ google code was adapted to suit vue, webpack, and this project. -->
     <div id="map-inner-wrapper">
       <div id="map"></div>
     </div>
-    <button class="btn" @click="createMap()">Update Map </button>
   </div>
-</div>
 </template>
 <script>
 export default {
@@ -191,6 +189,7 @@ export default {
     this.$evt.$on('responseOk', this.drawLine)
     this.$evt.$on('startUpdated', this.setStart)
     this.$evt.$on('endUpdated', this.setEnd)
+    this.$evt.$on('updateClicked', this.createMap)
   },
   beforeDestroy () {
     console.log('mapgoogle -> beforeDestroy')
@@ -201,6 +200,7 @@ export default {
     this.$evt.$off('responseOk', this.drawLine)
     this.$evt.$off('startUpdated', this.setStart)
     this.$evt.$off('endUpdated', this.setEnd)
+    this.$evt.$off('updateClicked', this.createMap)
   }
 }
 </script>
@@ -240,13 +240,6 @@ export default {
        margin-top: 10px;
        background-color: #FFEE77;
        padding: 10px;
-     }
-     .btn {
-       padding: 10px;
-       background-color: teal;
-       color: white;
-       float: left;
-       margin-left: 30px;
      }
      #map-wrapper {
        min-height: 100%;
