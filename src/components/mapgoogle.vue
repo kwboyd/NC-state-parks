@@ -13,15 +13,11 @@ export default {
     return {
       directionsDisplay: '',
       directionsService: '',
-      dataLoadComplete: false,
       locations: [],
       markers: [],
       map: '',
-      currentPolyline: '',
-      addedParkIndex: '',
       waypts: [],
       polyline: [],
-      currentDisplay: '',
       start: 'Chapel Hill, NC',
       end: 'Chapel Hill, NC'
     }
@@ -31,8 +27,8 @@ export default {
   methods: {
     pushMarkers: function () {
       // pushes coordinates from parks to locations index
-      for (var i in this.parks) {
-        this.locations.push(this.parks[i].coords)
+      for (var parksIndex in this.parks) {
+        this.locations.push(this.parks[parksIndex].coords)
       }
       this.polyline = new google.maps.Polyline({
         path: [],
@@ -63,10 +59,10 @@ export default {
       // loads the DirectionsService and DirectionsRenderer from google
       this.directionsService = new google.maps.DirectionsService
       this.directionsDisplay = new google.maps.DirectionsRenderer
-      for (var location in this.locations) {
+      for (var i in this.locations) {
         // pushes coords from locations to markers and creates markers via google
         var marker = (new google.maps.Marker({
-          position: this.locations[location],
+          position: this.locations[i],
           map: this.map,
           animation: google.maps.Animation.DROP
         }))
@@ -110,7 +106,6 @@ export default {
     },
     createMap: function () {
         // draws the route and displays directions
-      console.log('submitted')
         // sets 'this' to self so that 'this' can be used in the inline callback function
       var self = this
         // renames directionsService and directionsDisplay so it can be passed as arguments easier
@@ -146,31 +141,30 @@ export default {
         }
       })
     },
-    updateWaypoints: function (parkIndex) {
+    updateWaypoints: function () {
+      // updates the waypoints array for google
       var waypoints = []
-      console.log(this.addedParks)
-      for (var q in this.addedParks) {
-        console.log(this.addedParks[q])
+      for (var i in this.addedParks) {
+        // loops through addedParks and adds each as a waypoint
         var waypoint = {
-          location: this.addedParks[q].name,
+          location: this.addedParks[i].name,
           stopover: true
         }
          waypoints.push(waypoint)
       }
-      console.log(waypoints)
       this.waypts = waypoints
-      console.log(this.waypts)
     },
     setStart: function (start) {
+      // updates the starting location
       this.start = start
     },
     setEnd: function (end) {
+      // updates the ending location
       this.end = end
     }
   },
   mounted () {
     console.log('googlemap -> mounted')
-    // listens for dataLoaded event
     this.$evt.$on('dataLoaded', function () {
       this.$nextTick(() =>
       // after the next 'tick'/change to the dom, emits dataLoadComplete event
@@ -179,13 +173,9 @@ export default {
       this.$evt.$emit('dataLoadComplete')
     )
     })
-    // listens for dataLoadComplete event, then launches initMap
     this.$evt.$on('dataLoadComplete', this.pushMarkers)
-    // listens for a park to be added, then launches addClickedPark
     this.$evt.$on('parkAddComplete', this.updateWaypoints)
-    // listens for a park to be removed, then launches removeClickedPark
     this.$evt.$on('parkRemoveComplete', this.updateWaypoints)
-    // listens for the response from google, then draws the polyline and gets directions
     this.$evt.$on('responseOk', this.drawLine)
     this.$evt.$on('startUpdated', this.setStart)
     this.$evt.$on('endUpdated', this.setEnd)
@@ -205,42 +195,6 @@ export default {
 }
 </script>
 <style>
-#right-panel {
-       font-family: 'Roboto','sans-serif';
-       line-height: 30px;
-       padding-left: 10px;
-     }
-
-     #right-panel select, #right-panel input {
-       font-size: 15px;
-     }
-
-     #right-panel select {
-       width: 100%;
-     }
-
-     #right-panel i {
-       font-size: 12px;
-     }
-     html, body {
-       height: 100%;
-       margin: 0;
-       padding: 0;
-     }
-     #right-panel {
-       margin: 20px;
-       border-width: 2px;
-       width: 20%;
-       height: 400px;
-       float: left;
-       text-align: left;
-       padding-top: 0;
-     }
-     #directions-panel {
-       margin-top: 10px;
-       background-color: #FFEE77;
-       padding: 10px;
-     }
      #map-wrapper {
        min-height: 100%;
        margin-left: 25px;

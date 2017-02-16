@@ -21,9 +21,11 @@ export default {
   },
   methods: {
     updateStart () {
+      // emits an event that the starting location has been updated
       this.$evt.$emit('startUpdated', this.start)
     },
     updateEnd () {
+      // emits an event that the ending location has been updated
       this.$evt.$emit('endUpdated', this.end)
     }
   }

@@ -18,6 +18,7 @@ export default {
       // converts distance from meters to miles
       this.miles = distance / 1609
       this.distance = this.miles.toFixed(0) + ' miles'
+      // converts duration to hours and minutes
       var hours = Math.floor(duration / 3600)
       duration %= 3600
       var minutes = Math.floor(duration / 60)
@@ -35,9 +36,11 @@ export default {
     }
   },
   mounted () {
+    console.log('stats -> mounted')
     this.$evt.$on('legsUpdated', this.updateStats)
   },
   beforeDestroy () {
+    console.log('stats -> beforeDestroy')
     this.$evt.$off('legsUpdated', this.updateStats)
   }
 }

@@ -48,37 +48,40 @@ export default {
         .then((response) => {
           console.log(response.data)
           this.parks = response.data
-          console.log(this.parks)
           this.$evt.$emit('dataLoaded')
         })
     },
     setParkRemoved (parkIndex) {
-      // marks the park at the currentParkIndex as not being added
+      // marks the park at the parkIndex as not being added
       this.parks[parkIndex].added = false
-      for (var t in this.addedParks) {
-        if (this.parks[parkIndex].name === this.addedParks[t].name) {
-          this.addedParks.splice(t, 1)
+      for (var i in this.addedParks) {
+        // goes through addedParks and checks if the name matches the park at parkIndex's name
+        if (this.parks[parkIndex].name === this.addedParks[i].name) {
+          // if the names match, remove the park from the addedParks array
+          this.addedParks.splice(i, 1)
         }
       }
-      this.$evt.$emit('parkRemoveComplete', parkIndex)
+      this.$evt.$emit('parkRemoveComplete')
     },
     setParkAdded (parkIndex) {
+      // sets the park at parkIndex as added, then pushes it to the addedParks array
       this.parks[parkIndex].added = true
       this.addedParks.push(this.parks[parkIndex])
-      this.$evt.$emit('parkAddComplete', parkIndex)
+      this.$evt.$emit('parkAddComplete')
     },
     emitUpdate () {
+      // emits an event to update the map
       this.$evt.$emit('updateClicked')
     }
   },
   mounted () {
     console.log('app -> mounted')
     this.getAxios()
-    // listens for a park to be removed, calls setParkRemoved
     this.$evt.$on('parkRemoved', this.setParkRemoved)
     this.$evt.$on('parkAdded', this.setParkAdded)
   },
   beforeDestroy () {
+    console.log('app -> beforeDestroy')
     this.$evt.$off('parkRemoved', this.setParkRemoved)
     this.$evt.$off('parkAdded', this.setParkAdded)
   }
