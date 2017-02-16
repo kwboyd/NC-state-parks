@@ -2,6 +2,8 @@
   {
   "number": 0,
   "name": "Gorges State Park",
+  "town": "",
+  "image": "",
   "description": "You can compose complex media queries using logical operators, including not, and, and only. The and operator is used for combining multiple media features together into a single media query, requiring each chained feature to return true in order for the query to be true. The not operator is used to negate an entire media query. The only operator is used to apply a style only if the entire query matches, useful for preventing older browsers from applying selected styles. If you use the not or only operators, you must specify an explicit media type. You can compose complex media queries using logical operators, including not, and, and only. The and operator is used for combining multiple media features together into a single media query, requiring each chained feature to return true in order for the query to be true. The not operator is used to negate an entire media query. The only operator is used to apply a style only if the entire query matches, useful for preventing older browsers from applying selected styles. If you use the not or only operators, you must specify an explicit media type. You can compose complex media queries using logical operators, including not, and, and only. The and operator is used for combining multiple media features together into a single media query, requiring each chained feature to return true in order for the query to be true. The not operator is used to negate an entire media query. The only operator is used to apply a style only if the entire query matches, useful for preventing older browsers from applying selected styles. If you use the not or only operators, you must specify an explicit media type. You can compose complex media queries using logical operators, including not, and, and only. The and operator is used for combining multiple media features together into a single media query, requiring each chained feature to return true in order for the query to be true. The not operator is used to negate an entire media query. The only operator is used to apply a style only if the entire query matches, useful for preventing older browsers from applying selected styles. If you use the not or only operators, you must specify an explicit media type.",
   "coords": {
       "lat": 35.0960908,
@@ -12,11 +14,109 @@
 {
   "number": 1,
   "name": "Chimney Rock State Park",
+  "town": "",
+  "image": "",
   "description": "such beautiful",
   "coords": {
       "lat": 35.439988,
       "lng": -82.2500007
     },
   "added": false
+  },
+  {
+    "number": 2,
+    "name": "Pilot Mountain State Park",
+    "town": "",
+    "image": "",
+    "description": "WOW gorgeous",
+    "coords": {
+        "lat": 36.3423,
+        "lng": -80.4637
+      },
+    "added": false
+  },
+  {
+    "number": 3,
+    "name": "Morrow Mountain State Park",
+    "town": "",
+    "image": "",
+    "description": "Yas how nice",
+    "coords": {
+        "lat": 35.3644,
+        "lng": -80.0835
+      },
+    "added": false
+  },
+  {
+    "number": 4,
+    "name": "Jordan Lake State Park",
+    "town": "",
+    "image": "",
+    "description": "my gosh how pretty",
+    "coords": {
+        "lat": 35.7332,
+        "lng": -79.0172
+      },
+    "added": false
+  },
+  {
+    "number": 5,
+    "name": "Fort Macon State Park",
+    "town": "",
+    "image": "",
+    "description": "what a fort",
+    "coords": {
+        "lat": 34.6971,
+        "lng": -76.6787
+      },
+    "added": false
+  },
+  {
+    "number": 6,
+    "name": "Grandfather Mountain State Park",
+    "town": "",
+    "image": "",
+    "description": "hi grandpa",
+    "coords": {
+        "lat": 36.0959,
+        "lng": -81.8316
+      },
+    "added": false
+  },
+  {
+    "number": 7,
+    "name": "Carolina Beach State Park",
+    "town": "",
+    "image": "",
+    "description": "beach party",
+    "coords": {
+        "lat": 34.0459,
+        "lng": -77.9139
+      },
+    "added": false
+  },
+  {
+    "number": 8,
+    "name": "Raven Rock State Park",
+    "town": "",
+    "image": "",
+    "description": "bird rock",
+    "coords": {
+        "lat": 35.4645,
+        "lng": -78.8995
+      },
+    "added": false
+  },
+  {
+    "number": 9,
+    "name": "Hanging Rock State Park",
+    "town": "",
+    "image": "",
+    "description": "what a rock",
+    "coords": {
+        "lat": 36.3965,
+        "lng": -80.2682
+      },
+    "added": false
   }
 ]

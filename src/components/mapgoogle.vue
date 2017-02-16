@@ -53,7 +53,7 @@ export default {
       console.log('inited')
       // gets the map div and initializes a google map
       this.map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 7,
+        zoom: 6,
         center: {lat: 35.40, lng: -79.78}
       })
       // loads the DirectionsService and DirectionsRenderer from google

@@ -101,6 +101,5 @@ export default {
   padding: 10px;
   background-color: teal;
   color: white;
-  margin-left: 30px;
 }
 </style>
