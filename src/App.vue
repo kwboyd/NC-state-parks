@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <questions></questions>
+  <div class="columns">
     <mapgoogle :addedParks="addedParks" :parks="parks"></mapgoogle>
     <info :addedParks="addedParks" :parks="parks"></info>
+  </div>
     <parklist :addedParks="addedParks"></parklist>
     <stats></stats>
   </div>

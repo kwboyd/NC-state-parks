@@ -1,13 +1,13 @@
 <template>
-  <div>
-  <b>Start:</b>
-  <input v-model="start" placeholder="City, State OR Zip" @input="updateStart">
-  <br>
-  <b>End:</b>
-  <input v-model="end" placeholder="City, State OR Zip" @input="updateEnd">
-  <br>
-  <b>Your car's miles per gallon:</b>
-  <input v-model="mpg" type="number" @input="updateMpg">
+  <div class="level">
+    <div class="level-item">
+      <p>Starting location</p>
+      <input v-model="start" placeholder="City, State OR Zip" @input="updateStart">
+    </div>
+    <div class="level-item">
+      <p>Ending location</p>
+      <input v-model="end" placeholder="City, State OR Zip" @input="updateEnd">
+    </div>
   </div>
 </template>
 
@@ -15,7 +15,6 @@
 export default {
   data () {
     return {
-      mpg: 25,
       end: 'Chapel Hill, NC',
       start: 'Chapel Hill, NC'
     }
@@ -26,9 +25,6 @@ export default {
     },
     updateEnd () {
       this.$evt.$emit('endUpdated', this.end)
-    },
-    updateMpg () {
-      this.$evt.$emit('mpgUpdated', this.mpg)
     }
   }
 }

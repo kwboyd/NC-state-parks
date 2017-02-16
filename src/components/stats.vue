@@ -1,8 +1,8 @@
 <template>
   <div>
     <p>hello</p>
-    <p> {{ distance }} </p>
-    <p> {{ duration }} </p>
+    <p> Distance: {{ distance }} </p>
+    <p> Driving time: {{ duration }} </p>
   </div>
 </template>
 
@@ -17,8 +17,8 @@ export default {
   methods: {
     updateStats (distance, duration) {
       // converts distance from meters to miles
-      var miles = distance / 1609
-      this.distance = miles.toFixed(0) + ' miles'
+      this.miles = distance / 1609
+      this.distance = this.miles.toFixed(0) + ' miles'
       var hours = Math.floor(duration / 3600)
       duration %= 3600
       var minutes = Math.floor(duration / 60)

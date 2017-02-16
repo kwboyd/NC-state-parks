@@ -1,7 +1,7 @@
 <template>
-  <div :addedParks="addedParks">
+  <div class="panel" :addedParks="addedParks">
     <!-- creates list of added parks -->
-    <div v-for="park in addedParks">
+    <div class="panel-block" v-for="park in addedParks">
       <div v-show="addedParks.length > 0">
         <p>{{ park.name }}<p>
         <button class="btn" @click="removeParkFromList(park.number)">Remove</button>

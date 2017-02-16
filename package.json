@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "axios": "^0.15.3",
+    "bulma": "^0.3.1",
     "marker-clusterer-plus": "^2.1.4",
     "vue": "^2.1.10"
   },

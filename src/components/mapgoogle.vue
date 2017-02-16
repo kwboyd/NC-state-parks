@@ -1,8 +1,12 @@
 <!-- some of this code comes from https://developers.google.com/maps/documentation/javascript/examples/directions-waypoints,
 google code was adapted to suit vue, webpack, and this project. -->
 <template>
-<div :addedParks="addedParks" :parks="parks">
-  <button class="btn" @click="createMap()">Update Map </button>
+  <div id="map-wrapper" class="column is-two-thirds" :addedParks="addedParks" :parks="parks">
+    <div id="map-inner-wrapper">
+      <div id="map"></div>
+    </div>
+    <button class="btn" @click="createMap()">Update Map </button>
+  </div>
 </div>
 </template>
 <script>
@@ -21,8 +25,7 @@ export default {
       polyline: [],
       currentDisplay: '',
       start: 'Chapel Hill, NC',
-      end: 'Chapel Hill, NC',
-      mpg: 25
+      end: 'Chapel Hill, NC'
     }
   },
   props:
@@ -57,7 +60,7 @@ export default {
       // gets the map div and initializes a google map
       this.map = new google.maps.Map(document.getElementById('map'), {
         zoom: 7,
-        center: {lat: 35.91, lng: -79.05}
+        center: {lat: 35.40, lng: -79.78}
       })
       // loads the DirectionsService and DirectionsRenderer from google
       this.directionsService = new google.maps.DirectionsService
@@ -165,9 +168,6 @@ export default {
     },
     setEnd: function (end) {
       this.end = end
-    },
-    setMpg: function (mpg) {
-      this.mpg = mpg
     }
   },
   mounted () {
@@ -191,7 +191,6 @@ export default {
     this.$evt.$on('responseOk', this.drawLine)
     this.$evt.$on('startUpdated', this.setStart)
     this.$evt.$on('endUpdated', this.setEnd)
-    this.$evt.$on('mpgUpdated', this.setMpg)
   },
   beforeDestroy () {
     console.log('mapgoogle -> beforeDestroy')
@@ -202,7 +201,6 @@ export default {
     this.$evt.$off('responseOk', this.drawLine)
     this.$evt.$off('startUpdated', this.setStart)
     this.$evt.$off('endUpdated', this.setEnd)
-    this.$evt.$off('mpgUpdated', this.setMpg)
   }
 }
 </script>
@@ -229,12 +227,6 @@ export default {
        margin: 0;
        padding: 0;
      }
-     #map {
-       height: 100%;
-       float: left;
-       width: 70%;
-       height: 100%;
-     }
      #right-panel {
        margin: 20px;
        border-width: 2px;
@@ -255,5 +247,15 @@ export default {
        color: white;
        float: left;
        margin-left: 30px;
+     }
+     #map-wrapper {
+       min-height: 100%;
+     }
+     #map {
+       height: 275px;
+     }
+     #map-inner-wrapper {
+       height: 100%;
+       flex: 1;
      }
 </style>

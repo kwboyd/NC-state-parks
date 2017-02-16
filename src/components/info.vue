@@ -1,5 +1,5 @@
 <template>
-  <div :addedParks="addedParks" :parks="parks" id="container">
+  <div :addedParks="addedParks" :parks="parks" class="column">
     <!-- checks if currentParkIndex is set to the preload default values -->
       <h1 v-if="currentParkIndex == 'preload'"> Pick a park </h1>
       <h1 v-else> {{ parks[currentParkIndex].name }} </h1>
@@ -46,9 +46,6 @@ export default {
 }
 </script>
 <style scoped>
- #container {
-   float: right;
- }
  .btn {
    padding: 10px;
    background-color: teal;
