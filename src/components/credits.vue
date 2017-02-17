@@ -46,4 +46,7 @@ export default {
 #modal-stuff {
   color: #fff;
 }
+#modal-stuff li {
+  word-wrap: break-word;
+}
 </style>

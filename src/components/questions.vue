@@ -5,7 +5,7 @@
       <input class="place-input" v-model="startPlace" placeholder="City, State OR Zip" @input="updateStart">
     </div>
     <div class="level-item question">
-      <p>Ending location: &nbsp</p>
+      <p id="ending-location">Ending location: &nbsp</p>
       <input class="place-input" v-model="endPlace" placeholder="City, State OR Zip" @input="updateEnd">
     </div>
   </div>
@@ -43,5 +43,9 @@ export default {
   align-self: stretch;
   padding-left: 5px;
 }
-
+@media(max-width: 769px) {
+  #ending-location {
+  margin-left: -10px;
+  }
+}
 </style>

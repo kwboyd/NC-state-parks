@@ -4,7 +4,7 @@
   "name": "Gorges State Park",
   "image": "./static/gorges.jpg",
   "source": "https://www.romanticasheville.com/gorges_state_park.htm",
-  "description": "You can compose complex media queries using logical operators, including not, and, and only. The and operator is used for combining multiple media features together into a single media query, requiring each chained feature to return true in order for the query to be true. The not operator is used to negate an entire media query. The only operator is used to apply a style only if the entire query matches, useful for preventing older browsers from applying selected styles. If you use the not or only operators, you must specify an explicit media type. You can compose complex media queries using logical operators, including not, and, and only. The and operator is used for combining multiple media features together into a single media query, requiring each chained feature to return true in order for the query to be true. The not operator is used to negate an entire media query. The only operator is used to apply a style only if the entire query matches, useful for preventing older browsers from applying selected styles. If you use the not or only operators, you must specify an explicit media type. You can compose complex media queries using logical operators, including not, and, and only. The and operator is used for combining multiple media features together into a single media query, requiring each chained feature to return true in order for the query to be true. The not operator is used to negate an entire media query. The only operator is used to apply a style only if the entire query matches, useful for preventing older browsers from applying selected styles. If you use the not or only operators, you must specify an explicit media type. You can compose complex media queries using logical operators, including not, and, and only. The and operator is used for combining multiple media features together into a single media query, requiring each chained feature to return true in order for the query to be true. The not operator is used to negate an entire media query. The only operator is used to apply a style only if the entire query matches, useful for preventing older browsers from applying selected styles. If you use the not or only operators, you must specify an explicit media type.",
+  "description": "Featuring beautiful waterfalls, gorges and rock walls, this 7,500-acre park is perfect for hiking, backpacking and mountain biking. The park includes part of the Foothills Trail and touches Lake Jocassee at the South Carolina border.",
   "coords": {
       "lat": 35.0960908,
       "lng": -82.9506875
@@ -16,7 +16,7 @@
   "name": "Chimney Rock State Park",
   "image": "./static/chimney.jpg",
   "source": "https://commons.wikimedia.org/wiki/File:Chimney_Rock,_NC_USA.jpg",
-  "description": "such beautiful",
+  "description": "Chimney Rock's signature 315-foot spire offers an incredible view of Hickory Nut Gorge and Lake Lure. This parks also offers picnicking and hiking trails that range from child-friendly nature explorations to treks to the top of Chimney Rock Mountain.",
   "coords": {
       "lat": 35.439988,
       "lng": -82.2500007
@@ -28,7 +28,7 @@
     "name": "Pilot Mountain State Park",
     "image": "./static/pilot.jpg",
     "source": "https://commons.wikimedia.org/wiki/File:Pilot_Mountain_US-52_in_NC_071102.JPG",
-    "description": "WOW gorgeous",
+    "description": "Pilot Mountain's signature shape has been a navigational landmark for centuries. The mountain's summit is connected to the Yadkin River by a hiking trail filled with extraordinary scenery. The cliffs of the mountain also are perfect for rock climbing and rappelling.",
     "coords": {
         "lat": 36.3423,
         "lng": -80.4637
@@ -40,7 +40,7 @@
     "name": "Morrow Mountain State Park",
     "image": "./static/morrow.jpg",
     "source": "https://commons.wikimedia.org/wiki/File:Morrow_mountain_20061020.jpg",
-    "description": "Yas how nice",
+    "description": "Extending up to the summit of Morrow Mountain, this park has over 15 miles of hiking trails. Visitors can also swim, canoe, and fish in Lake Tillery at the mountain's base. The park also has campgrounds and 16 miles of trails for horsebackriding.",
     "coords": {
         "lat": 35.3644,
         "lng": -80.0835
@@ -49,13 +49,13 @@
   },
   {
     "number": 4,
-    "name": "Jordan Lake State Park",
-    "image": "./static/jordan.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Jordan_Lake_from_Ebenezer_Church_shore.jpg",
-    "description": "my gosh how pretty",
+    "name": "Lake James State Park",
+    "image": "./static/james.jpg",
+    "source": "https://www.romanticasheville.com/lake_james.htm",
+    "description": "The clear waters of this 6,812-acre lake offer a perfect venue for boating, swimming and fishing. The 25 miles of surrounding trails are also available for hiking and some for mountain biking. This park also offers many campsites, many of which offer views of the lake.",
     "coords": {
-        "lat": 35.7332,
-        "lng": -79.0172
+        "lat": 35.7578,
+        "lng": -81.8888
       },
     "added": false
   },
@@ -64,7 +64,7 @@
     "name": "Fort Macon State Park",
     "image": "./static/macon.jpg",
     "source": "https://commons.wikimedia.org/wiki/File:Fort_Macon_Seaward_Side.jpg",
-    "description": "what a fort",
+    "description": "This Civil War-era fort is nearly surrounded by an unspoiled shoreline perfect for swimming, surf fishing and beachcombing. The park also has a coastal education center and offers guided tours and cannon and musket demonstrations.",
     "coords": {
         "lat": 34.6971,
         "lng": -76.6787
@@ -76,7 +76,7 @@
     "name": "Grandfather Mountain State Park",
     "image": "./static/grandfather.jpg",
     "source": "https://commons.wikimedia.org/wiki/File:Grandfather_Mountain_Bridge-27527.jpg",
-    "description": "hi grandpa",
+    "description": "This famous mountain offers unmatched scenery and ecological diversity. The park is known for having some of the South's most severe weather and challenging terrain making it an attractive adventure for experienced hikers, but there are also easier trails that include the mile-high swinging bridge.",
     "coords": {
         "lat": 36.0959,
         "lng": -81.8316
@@ -88,7 +88,7 @@
     "name": "Carolina Beach State Park",
     "image": "./static/carolina.jpg",
     "source": "https://vimeo.com/176197674",
-    "description": "beach party",
+    "description": "This park's famous marina provides access to some of the state's best fishing spots, but the park also offers miles of trails and a secluded camping area. The Venus flytrap, one of the world's most unique carnivorous plants, also grows in this park's distinct habitats.",
     "coords": {
         "lat": 34.0459,
         "lng": -77.9139
@@ -100,7 +100,7 @@
     "name": "Raven Rock State Park",
     "image": "./static/raven.jpg",
     "source": "https://www.flickr.com/photos/gerrydincher/8074824871",
-    "description": "bird rock",
+    "description": "Raven Rock, a massive landmark along the Cape Fear river, is the main feature of this park, but hikers trekking through the park also can encounter Lanier Falls, the Fish Traps rapids, steep terrain and tumbling creeks. The parks offers beautiful backcountry camping areas and an equestrian area.",
     "coords": {
         "lat": 35.4645,
         "lng": -78.8995
@@ -112,11 +112,71 @@
     "name": "Hanging Rock State Park",
     "image": "./static/hanging.jpg",
     "source": "https://www.visitnc.com/story/hanging-rock-state-park-a-nature-respite",
-    "description": "what a rock",
+    "description": "Hanging Rock offers a perfect outdoor experience with many campsites, picnic grounds, a lake for swimming and canoeing, as well as more than 20 miles of hiking trails that weave alongside clear streams and waterfalls.",
     "coords": {
         "lat": 36.3965,
         "lng": -80.2682
       },
+    "added": false
+  },
+  {
+    "number": 10,
+    "name": "Crowders Mountain State Park",
+    "image": "./static/crowders.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Crowders_Mountain_State_Park_-_panoramio_(1).jpg",
+    "description": "The two peaks here - The Pinnacle and Crowders Mountain - both offers challenging hikes, towering cliffs and stunning views. The trails range from pastoral to strenuous, and a nine-acre lake is perfect for fishing and canoeing.",
+    "coords": {
+      "lat": 35.2142,
+      "lng": -81.2936
+    },
+    "added": false
+  },
+  {
+    "number": 11,
+    "name": "Goose Creek State Park",
+    "image": "./static/goose.jpg",
+    "source": "https://www.pinterest.com/pin/363243526166082275/",
+    "description": "This park's eight miles of trails lead visitors through oaks draped in moss, wetlands along the Pamlico Sound and a cypress swamp. The parks also features an environmental education center with detailed exhibits to learn about these habitats.",
+    "coords": {
+      "lat": 35.4736,
+      "lng": -76.9105
+    },
+    "added": false
+  },
+  {
+    "number": 12,
+    "name": "Cliffs of the Neuse State Park",
+    "image": "./static/neuse.jpg",
+    "source": "http://www.bestoftheroad.com/place/cliffs-of-the-neuse-state-park-seven-springs/129394",
+    "description": "This park features impressive cliffs overlooking the Neuse River. Hiking trails lead visitors along the river and to quiet fishing spots. The park also offers an 11-acre swimming lake with a sandy beach and a diving platform, along with campsites and picnic grounds.",
+    "coords": {
+      "lat": 35.2377,
+      "lng": -77.8897
+    },
+    "added": false
+  },
+  {
+    "number": 13,
+    "name": "Merchants Millpond State Park",
+    "image": "./static/merchants.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Merchants_Millpond_SP_NC_5581.jpg",
+    "description": "The unique landscape of this park offers swamps, hardwood forest, massive cypress trees, beech groves and exotic wildlife. Visiotrs can camp, backpack, canoe and kayak along the scenic pond that's surrounded by nine miles of hiking trails.",
+    "coords": {
+      "lat": 36.4366,
+      "lng": -76.6993
+    },
+    "added": false
+  },
+  {
+    "number": 14,
+    "name": "Eno River State Park",
+    "image": "./static/eno.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:04_Quarry_Trail_Eno_River_SP_NC_7905_(12483858043).jpg",
+    "description": "The Eno River flows along the urban areas of Durham and Orange counties and rolls past forests, river bluffs covered in flowering shrubs, and historic mills and fords. The park is popular with photographers for its beautiful scenery and 30 miles of trails along the swift, shallow stream.",
+    "coords": {
+      "lat": 36.0738,
+      "lng": -79.0059
+    },
     "added": false
   }
 ]

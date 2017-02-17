@@ -34,7 +34,7 @@ export default {
       }
       this.polyline = new window.google.maps.Polyline({
         path: [],
-        strokeColor: '#FF0000',
+        strokeColor: '#73c8ca',
         strokeWeight: 3
       })
       this.initMap()
@@ -124,20 +124,6 @@ export default {
         if (status === 'OK') {
           // emits a response because the scope is too narrow inside this function to call a method
           self.$evt.$emit('responseOk', response, status, currentDisplay)
-                  // currentDisplay.setDirections(response)
-              // displays the route
-            // var route = response.routes[0]
-              // var summaryPanel = document.getElementById('directions-panel')
-              // summaryPanel.innerHTML = ''
-              // For each route, display summary information.
-              // for (var i = 0; i < route.legs.length; i++) {
-              // var routeSegment = i + 1
-              // summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-              // '</b><br>'
-              // summaryPanel.innerHTML += route.legs[i].start_address + ' to '
-              // summaryPanel.innerHTML += route.legs[i].end_address + '<br>'
-              // summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>'
-              // }
         } else {
           window.alert('Directions request failed due to ' + status)
         }
