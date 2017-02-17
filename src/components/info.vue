@@ -4,18 +4,18 @@
     <span v-if="currentParkIndex == 'preload'"></span>
     <div v-else id="park-button-box">
       <!-- passes the number property of the displayed park, which matches the index of the park in the parks array -->
-      <button class="button" @click="addPark(parks[currentParkIndex].number)" v-if="!parks[currentParkIndex].added">Add to route</button>
-      <button class="button" @click="removePark(parks[currentParkIndex].number)" v-else="parks[currentParkIndex].added">Remove</button>
+      <button class="colored-button" @click="addPark(parks[currentParkIndex].number)" v-if="!parks[currentParkIndex].added">Add to route</button>
+      <button class="colored-button" @click="removePark(parks[currentParkIndex].number)" v-else="parks[currentParkIndex].added">Remove</button>
       <p>Scroll within this box to learn about this park.</p>
     </div>
     <div id="park-info-box" v-if="currentParkIndex == 'preload'">
-      <h1> Pick a park </h1>
-      <h2> Add a park </h2>
+      <p class="park-name"> Click on a map marker to pick a park</p>
+      <p class="park-name"> An 'add to route' button will appear here, which will turn into a remove button if a park is already on your route.</p>
     </div>
     <div id="park-info-box" v-else>
-      <h1> {{ parks[currentParkIndex].name }} </h1>
+      <p class="park-name"> {{ parks[currentParkIndex].name }} </p>
       <img :src="parks[currentParkIndex].image" :alt="parks[currentParkIndex].name">
-      <h2> {{ parks[currentParkIndex].description }} </h2>
+      <p id="description"> {{ parks[currentParkIndex].description }} </p>
     </div>
   </div>
 </template>
@@ -56,17 +56,24 @@ export default {
 #info-container {
   max-height: 302px;
   overflow: scroll;
-  border-width: 3px;
   border-radius: 8px;
-  border-style: solid;
-  border-color: #fff;
   background: #fff;
 }
 #park-button-box {
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 #park-button-box p {
   font-size: .85em;
+}
+.park-name {
+  margin: 6px;
+  padding-top: 3px;
+  font-size: 1.5em;
+}
+#description {
+  text-align: left;
+  padding: 6px;
 }
 </style>

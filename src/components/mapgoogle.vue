@@ -200,6 +200,7 @@ export default {
     #map-container {
       border-radius: 8px;
       background-color: #fff;
+      padding-top: .9rem;
     }
      #map-wrapper {
        min-height: 100%;

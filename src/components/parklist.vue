@@ -1,12 +1,12 @@
 <template>
-  <div class="column is-two-thirds" :addedParks="addedParks">
+  <div class="column" :addedParks="addedParks">
     <!-- creates list of added parks -->
     <ul id="park-list-container">
       <!-- if the addedParks array isn't empty, display that park in the list -->
       <div class="list-item" v-for="park in addedParks" v-show="addedParks.length > 0">
         <!-- passes the number property of the clicked park, which equals the park's index in the parks array -->
-        <button class="button" @click="removeParkFromList(park.number)">Remove</button>
-        <p>{{ park.name }}<p>
+        <button id="remove-button" class="colored-button" @click="removeParkFromList(park.number)">Remove</button>
+        <p id="park-list-name">{{ park.name }}<p>
       </div>
     </ul>
   </div>
@@ -33,6 +33,12 @@ export default {
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    width: 250px;
+    width: 300px;
+  }
+  #park-list-name {
+    margin-left: 10px;
+  }
+  #remove-button {
+    margin-left: 10px;
   }
 </style>

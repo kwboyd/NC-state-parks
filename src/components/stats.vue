@@ -1,8 +1,10 @@
 <template>
   <div class="column is-one-third">
-    <h2>Your trip:</h2>
-    <p> Total distance: {{ distance }} </p>
-    <p> Total driving time: {{ duration }} </p>
+    <div id="stats-container">
+      <p class="color-text" id="your-trip">Your trip:</p>
+      <p class="stats-text"> Total distance: <span class="color-text">{{ distance }}</span> </p>
+      <p class="stats-text"> Total driving time: <span class="color-text">{{ duration }}</span> </p>
+    </div>
   </div>
 </template>
 
@@ -48,4 +50,15 @@ export default {
 </script>
 
 <style>
+.stats-text {
+  color: #000;
+  font-size: 1.25em;
+}
+#stats-container {
+  padding: 6px;
+  text-align: left;
+}
+#your-trip {
+  font-size: 1.4em;
+}
 </style>

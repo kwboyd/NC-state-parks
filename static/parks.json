@@ -3,6 +3,7 @@
   "number": 0,
   "name": "Gorges State Park",
   "image": "./static/gorges.jpg",
+  "source": "https://www.romanticasheville.com/gorges_state_park.htm",
   "description": "You can compose complex media queries using logical operators, including not, and, and only. The and operator is used for combining multiple media features together into a single media query, requiring each chained feature to return true in order for the query to be true. The not operator is used to negate an entire media query. The only operator is used to apply a style only if the entire query matches, useful for preventing older browsers from applying selected styles. If you use the not or only operators, you must specify an explicit media type. You can compose complex media queries using logical operators, including not, and, and only. The and operator is used for combining multiple media features together into a single media query, requiring each chained feature to return true in order for the query to be true. The not operator is used to negate an entire media query. The only operator is used to apply a style only if the entire query matches, useful for preventing older browsers from applying selected styles. If you use the not or only operators, you must specify an explicit media type. You can compose complex media queries using logical operators, including not, and, and only. The and operator is used for combining multiple media features together into a single media query, requiring each chained feature to return true in order for the query to be true. The not operator is used to negate an entire media query. The only operator is used to apply a style only if the entire query matches, useful for preventing older browsers from applying selected styles. If you use the not or only operators, you must specify an explicit media type. You can compose complex media queries using logical operators, including not, and, and only. The and operator is used for combining multiple media features together into a single media query, requiring each chained feature to return true in order for the query to be true. The not operator is used to negate an entire media query. The only operator is used to apply a style only if the entire query matches, useful for preventing older browsers from applying selected styles. If you use the not or only operators, you must specify an explicit media type.",
   "coords": {
       "lat": 35.0960908,
@@ -14,6 +15,7 @@
   "number": 1,
   "name": "Chimney Rock State Park",
   "image": "./static/chimney.jpg",
+  "source": "https://commons.wikimedia.org/wiki/File:Chimney_Rock,_NC_USA.jpg",
   "description": "such beautiful",
   "coords": {
       "lat": 35.439988,
@@ -25,6 +27,7 @@
     "number": 2,
     "name": "Pilot Mountain State Park",
     "image": "./static/pilot.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Pilot_Mountain_US-52_in_NC_071102.JPG",
     "description": "WOW gorgeous",
     "coords": {
         "lat": 36.3423,
@@ -36,6 +39,7 @@
     "number": 3,
     "name": "Morrow Mountain State Park",
     "image": "./static/morrow.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Morrow_mountain_20061020.jpg",
     "description": "Yas how nice",
     "coords": {
         "lat": 35.3644,
@@ -47,6 +51,7 @@
     "number": 4,
     "name": "Jordan Lake State Park",
     "image": "./static/jordan.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Jordan_Lake_from_Ebenezer_Church_shore.jpg",
     "description": "my gosh how pretty",
     "coords": {
         "lat": 35.7332,
@@ -58,6 +63,7 @@
     "number": 5,
     "name": "Fort Macon State Park",
     "image": "./static/macon.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Fort_Macon_Seaward_Side.jpg",
     "description": "what a fort",
     "coords": {
         "lat": 34.6971,
@@ -69,6 +75,7 @@
     "number": 6,
     "name": "Grandfather Mountain State Park",
     "image": "./static/grandfather.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Grandfather_Mountain_Bridge-27527.jpg",
     "description": "hi grandpa",
     "coords": {
         "lat": 36.0959,
@@ -80,6 +87,7 @@
     "number": 7,
     "name": "Carolina Beach State Park",
     "image": "./static/carolina.jpg",
+    "source": "https://vimeo.com/176197674",
     "description": "beach party",
     "coords": {
         "lat": 34.0459,
@@ -91,6 +99,7 @@
     "number": 8,
     "name": "Raven Rock State Park",
     "image": "./static/raven.jpg",
+    "source": "https://www.flickr.com/photos/gerrydincher/8074824871",
     "description": "bird rock",
     "coords": {
         "lat": 35.4645,
@@ -102,6 +111,7 @@
     "number": 9,
     "name": "Hanging Rock State Park",
     "image": "./static/hanging.jpg",
+    "source": "https://www.visitnc.com/story/hanging-rock-state-park-a-nature-respite",
     "description": "what a rock",
     "coords": {
         "lat": 36.3965,

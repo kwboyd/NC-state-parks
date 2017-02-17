@@ -1,19 +1,20 @@
 <template>
   <div id="app">
     <div class="container">
-      <button class="btn" @click="emitUpdate">Update Map </button>
+      <instructions></instructions>
       <questions></questions>
     <div class="columns">
       <mapgoogle :addedParks="addedParks" :parks="parks"></mapgoogle>
       <info :addedParks="addedParks" :parks="parks"></info>
     </div>
-    <div class="columns">
-      <stats style="background-color:gray;"></stats>
-      <parklist :addedParks="addedParks" style="background-color:cyan;"></parklist>
+    <div class="columns is-gapless" id="your-trip-container">
+      <stats></stats>
+      <parklist :addedParks="addedParks"></parklist>
     </div>
-    <button class="button" @click="modalOpen">Credits</button>
-    <credits></credits>
-  </div>
+      <button class="btn" @click="emitUpdate">Update Map </button>
+    </div>
+    <foot></foot>
+    <credits :parks="parks"></credits>
   </div>
 </template>
 
@@ -24,7 +25,9 @@ import info from './components/info'
 import parklist from './components/parklist'
 import stats from './components/stats'
 import questions from './components/questions'
+import instructions from './components/instructions'
 import credits from './components/credits'
+import foot from './components/foot'
 export default {
   name: 'app',
   components: {
@@ -33,7 +36,9 @@ export default {
     parklist,
     stats,
     questions,
-    credits
+    instructions,
+    credits,
+    foot
   },
   data () {
     return {
@@ -78,9 +83,6 @@ export default {
     emitUpdate () {
       // emits an event to update the map
       this.$evt.$emit('updateClicked')
-    },
-    modalOpen () {
-      this.$evt.$emit('openModal')
     }
   },
   mounted () {
@@ -103,11 +105,32 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-  background-image: linear-gradient(to top, #9be15d 0%, #00e3ae 100%);
+  background-image: linear-gradient(to top, #B7F8DB 0%, #50A7C2 100%);;
 }
 .column {
   margin: 10px 20px;
 }
+.color-text {
+  color: #44a4bb;
+  font-weight: bold;
+}
+#your-trip-container {
+  background-color: #fff;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 10px 12px;
+}
+.colored-button {
+  margin-right: 13px;
+  color: #fff;
+  background-color: #73c8ca;
+  /*this styling from bulma*/
+  padding-left: .75em;
+  padding-right: .75em;
+  cursor: pointer;
+  height: 2.285em;
+  font-size: 1rem;
+  border-radius: 3px;
+}
+
 </style>
