@@ -4,7 +4,7 @@
 
 ## About this project
 Created by Kate Boyd.
-Portfolio at: [http://kwboyd.com]
+Portfolio at [kwboyd.com](http://kwboyd.com).
 This project was built for MEJO583, Advanced Multimedia Programming, at the University of North Carolina at Chapel Hill's School of Media and Journalism.
 
 ### Assignment requirements
