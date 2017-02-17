@@ -57,6 +57,7 @@ export default {
       axios.get('/static/parks.json')
         .then((response) => {
           console.log(response.data)
+          // sets the parks as the data
           this.parks = response.data
           this.$evt.$emit('dataLoaded')
         })

@@ -145,6 +145,7 @@ export default {
       this.createMap()
     },
     updateEndpoints: function (startPlace, endPlace) {
+      // updates the endpoints from the data passed from the question component
       this.startPlace = startPlace
       this.endPlace = endPlace
       this.createMap()

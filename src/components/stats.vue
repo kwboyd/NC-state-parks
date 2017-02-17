@@ -22,15 +22,17 @@ export default {
       this.miles = distance / 1609
       this.distance = this.miles.toFixed(0) + ' miles'
       // converts duration to hours and minutes
+      // this code based partially on http://stackoverflow.com/questions/1322732/convert-seconds-to-hh-mm-ss-with-javascript
       var hours = Math.floor(duration / 3600)
       duration %= 3600
       var minutes = Math.floor(duration / 60)
+      // checks if minute/hours both need to be displayed and if they need to be plural
       if (hours < 1 && minutes === 1) {
-        this.duration = '1 minutes'
+        this.duration = '1 minute'
       } else if (hours < 1) {
         this.duration = minutes + ' minutes'
       } else if (hours === 1 && minutes === 0) {
-        this.duration = hours + ' hours'
+        this.duration = hours + ' hour'
       } else if (hours > 1 && minutes === 0) {
         this.duration = hours + ' hours'
       } else if (hours >= 1) {

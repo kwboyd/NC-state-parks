@@ -23,15 +23,8 @@ export default {
     }
   },
   methods: {
-    // updateStart () {
-    //   // emits an event that the starting location has been updated
-    //   this.$evt.$emit('startUpdated', this.startPlace)
-    // },
-    // updateEnd () {
-    //   // emits an event that the ending location has been updated
-    //   this.$evt.$emit('endUpdated', this.endPlace)
-    // },
     updateLocations () {
+      // emits an event that the locations have been updated, passes endPlace and startPlace
       this.$evt.$emit('locationsUpdated', this.endPlace, this.startPlace)
     }
   }

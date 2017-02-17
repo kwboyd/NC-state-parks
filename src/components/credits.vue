@@ -26,10 +26,13 @@ export default {
   },
   props: ['parks'],
   methods: {
+    // Alma helped me with the modal code <3
     showModal () {
+      // sets the modalObject as true, which adds the class is-active to the modal
       this.modalObject['is-active'] = true
     },
     closeModal () {
+      // sets the modalObject as false, which removes the class is-active to the modal
       this.modalObject['is-active'] = false
     }
   },
