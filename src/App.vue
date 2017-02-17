@@ -11,7 +11,6 @@
       <stats></stats>
       <parklist :addedParks="addedParks"></parklist>
     </div>
-      <button class="btn" @click="emitUpdate">Update Map </button>
     </div>
     <foot></foot>
     <credits :parks="parks"></credits>

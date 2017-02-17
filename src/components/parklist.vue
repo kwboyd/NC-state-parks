@@ -33,7 +33,8 @@ export default {
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    width: 300px;
+    width: 310px;
+    margin-top: 3px;
   }
   #park-list-name {
     margin-left: 10px;

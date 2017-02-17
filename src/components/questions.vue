@@ -2,11 +2,14 @@
   <div class="level">
     <div class="level-item question">
       <p>Starting location: &nbsp</p>
-      <input class="place-input" v-model="startPlace" placeholder="City, State OR Zip" @input="updateStart">
+      <input class="place-input" v-model="startPlace" placeholder="City, State OR Zip">
     </div>
     <div class="level-item question">
       <p id="ending-location">Ending location: &nbsp</p>
-      <input class="place-input" v-model="endPlace" placeholder="City, State OR Zip" @input="updateEnd">
+      <input class="place-input" v-model="endPlace" placeholder="City, State OR Zip">
+    </div>
+    <div class="level-item">
+      <button class="button" @click="updateLocations">Update locations</button>
     </div>
   </div>
 </template>
@@ -15,18 +18,21 @@
 export default {
   data () {
     return {
-      endPlace: 'Chapel Hill, NC',
-      startPlace: 'Chapel Hill, NC'
+      startPlace: 'Chapel Hill, NC',
+      endPlace: '27514'
     }
   },
   methods: {
-    updateStart () {
-      // emits an event that the starting location has been updated
-      this.$evt.$emit('startUpdated', this.startPlace)
-    },
-    updateEnd () {
-      // emits an event that the ending location has been updated
-      this.$evt.$emit('endUpdated', this.endPlace)
+    // updateStart () {
+    //   // emits an event that the starting location has been updated
+    //   this.$evt.$emit('startUpdated', this.startPlace)
+    // },
+    // updateEnd () {
+    //   // emits an event that the ending location has been updated
+    //   this.$evt.$emit('endUpdated', this.endPlace)
+    // },
+    updateLocations () {
+      this.$evt.$emit('locationsUpdated', this.endPlace, this.startPlace)
     }
   }
 }

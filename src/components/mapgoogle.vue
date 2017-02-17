@@ -21,7 +21,7 @@ export default {
       waypts: [],
       polyline: [],
       startPlace: 'Chapel Hill, NC',
-      endPlace: 'Chapel Hill, NC'
+      endPlace: '27514'
     }
   },
   props:
@@ -34,7 +34,6 @@ export default {
       }
       this.polyline = new window.google.maps.Polyline({
         path: [],
-        strokeColor: '#73c8ca',
         strokeWeight: 3
       })
       this.initMap()
@@ -107,6 +106,7 @@ export default {
       this.$evt.$emit('legsUpdated', currentDistance, currentDuration)
     },
     createMap: function () {
+      console.log('creating')
         // draws the route and displays directions
         // sets 'this' to self so that 'this' can be used in the inline callback function
       var self = this
@@ -125,7 +125,7 @@ export default {
           // emits a response because the scope is too narrow inside this function to call a method
           self.$evt.$emit('responseOk', response, status, currentDisplay)
         } else {
-          window.alert('Directions request failed due to ' + status)
+          window.alert('Directions request failed due to ' + status + '. Did you set valid start and end locations?')
         }
       })
     },
@@ -141,14 +141,13 @@ export default {
         waypoints.push(waypoint)
       }
       this.waypts = waypoints
+      console.log('waypt updated')
+      this.createMap()
     },
-    setStart: function (startPlace) {
-      // updates the starting location
+    updateEndpoints: function (startPlace, endPlace) {
       this.startPlace = startPlace
-    },
-    setEnd: function (endPlace) {
-      // updates the ending location
       this.endPlace = endPlace
+      this.createMap()
     }
   },
   mounted () {
@@ -165,9 +164,7 @@ export default {
     this.$evt.$on('parkAddComplete', this.updateWaypoints)
     this.$evt.$on('parkRemoveComplete', this.updateWaypoints)
     this.$evt.$on('responseOk', this.drawLine)
-    this.$evt.$on('startUpdated', this.setStart)
-    this.$evt.$on('endUpdated', this.setEnd)
-    this.$evt.$on('updateClicked', this.createMap)
+    this.$evt.$on('locationsUpdated', this.updateEndpoints)
   },
   beforeDestroy () {
     console.log('mapgoogle -> beforeDestroy')
@@ -176,9 +173,7 @@ export default {
     this.$evt.$off('parkAddComplete', this.updateWaypoints)
     this.$evt.$off('parkRemoveComplete', this.updateWaypoints)
     this.$evt.$off('responseOk', this.drawLine)
-    this.$evt.$off('startUpdated', this.setStart)
-    this.$evt.$off('endUpdated', this.setEnd)
-    this.$evt.$off('updateClicked', this.createMap)
+    this.$evt.$off('locationsUpdated', this.updateEndpoints)
   }
 }
 </script>
