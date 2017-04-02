@@ -5,6 +5,7 @@
 ## About this project
 Created by Kate Boyd.
 Portfolio at [kwboyd.com](http://kwboyd.com).
+App viewable [here](http://kwboyd.com/ncparks/).
 This project helps users learn about North Carolina state parks and plan potential road trips to each of them. I created this app because of my passion for local parks and the natural beauty of North Carolina that often goes unappreciated. I didn't realize before I began creating this app that no matter where you live in NC, there are at least a few parks within driving distance for a day trip. My hope is that this app will allow others to realize this too.
 
 ### Technical information
