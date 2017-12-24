@@ -6,7 +6,7 @@
       <div class="list-item" v-for="park in addedParks" v-show="addedParks.length > 0">
         <!-- passes the number property of the clicked park, which equals the park's index in the parks array -->
         <button id="remove-button" class="colored-button" @click="removeParkFromList(park.number)">Remove</button>
-        <p id="park-list-name">{{ park.name }}<p>
+        <p id="park-list-name">{{ park.name }}</p>
       </div>
     </ul>
   </div>

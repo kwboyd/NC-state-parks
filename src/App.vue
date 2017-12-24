@@ -3,14 +3,12 @@
     <div class="container">
       <instructions></instructions>
       <questions></questions>
-    <div class="columns">
       <mapgoogle :addedParks="addedParks" :parks="parks"></mapgoogle>
       <info :addedParks="addedParks" :parks="parks"></info>
-    </div>
-    <div class="columns is-gapless" id="your-trip-container">
-      <stats></stats>
-      <parklist :addedParks="addedParks"></parklist>
-    </div>
+      <div class="columns is-gapless" id="your-trip-container">
+        <stats></stats>
+        <parklist :addedParks="addedParks"></parklist>
+      </div>
     </div>
     <foot></foot>
     <credits :parks="parks"></credits>
@@ -105,25 +103,29 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background-image: linear-gradient(to top, #B7F8DB 0%, #50A7C2 100%);;
+  background-color: #f5feff;
 }
+
 .column {
   margin: 10px 20px;
 }
+
 .color-text {
-  color: #44a4bb;
+  color: #143a44;
   font-weight: bold;
 }
+
 #your-trip-container {
-  background-color: #fff;
+  /* background-color: #fff; */
   border-radius: 8px;
   margin: 10px;
   padding: 10px 12px;
 }
+
 .colored-button {
   margin-right: 13px;
   color: #fff;
-  background-color: #73c8ca;
+  /* background-color: #73c8ca; */
   /*this styling from bulma*/
   padding-left: .75em;
   padding-right: .75em;

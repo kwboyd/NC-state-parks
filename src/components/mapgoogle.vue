@@ -1,7 +1,7 @@
 <!-- some of this code comes from https://developers.google.com/maps/documentation/javascript/examples/directions-waypoints,
 google code was adapted to suit vue, webpack, and this project. -->
 <template>
-  <div id="map-container" class="column is-half" :addedParks="addedParks" :parks="parks">
+  <div id="map-container" :addedParks="addedParks" :parks="parks">
     <div id="map-wrapper">
       <div id="map-inner-wrapper">
         <div id="map"></div>
@@ -54,7 +54,7 @@ export default {
       console.log('inited')
       // gets the map div and initializes a google map
       this.map = new window.google.maps.Map(document.getElementById('map'), {
-        zoom: 6,
+        zoom: 7,
         center: {lat: 35.40, lng: -79.78}
       })
       // loads the DirectionsService and DirectionsRenderer from google
@@ -179,23 +179,25 @@ export default {
 }
 </script>
 <style>
-    #map-container {
-      border-radius: 8px;
-      background-color: #fff;
-      padding-top: .9rem;
-    }
-     #map-wrapper {
-       min-height: 100%;
-       margin-left: 25px;
-       padding: 0;
-       margin-right: 12px;
-       border-radius: 8px;
-     }
-     #map {
-       height: 275px;
-     }
-     #map-inner-wrapper {
-       height: 100%;
-       flex: 1;
-     }
+#map-container {
+  padding-top: .9rem;
+}
+
+#map-wrapper {
+  height: 400px;
+  min-height: 100%;
+  margin-left: 25px;
+  padding: 0;
+  margin-right: 12px;
+  border-radius: 8px;
+}
+
+#map {
+  height: 400px;
+}
+
+#map-inner-wrapper {
+  height: 100%;
+  flex: 1;
+}
 </style>

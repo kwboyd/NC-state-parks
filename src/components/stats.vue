@@ -53,13 +53,15 @@ export default {
 
 <style>
 .stats-text {
-  color: #000;
+  color: #fff;
   font-size: 1.25em;
 }
+
 #stats-container {
   padding: 6px;
   text-align: left;
 }
+
 #your-trip {
   font-size: 1.4em;
 }

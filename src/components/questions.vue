@@ -1,11 +1,11 @@
 <template>
   <div class="level">
     <div class="level-item question">
-      <p>Starting location: &nbsp</p>
+      <p>Starting location: &nbsp;</p>
       <input class="place-input" v-model="startPlace" placeholder="City, State OR Zip">
     </div>
     <div class="level-item question">
-      <p id="ending-location">Ending location: &nbsp</p>
+      <p id="ending-location">Ending location: &nbsp;</p>
       <input class="place-input" v-model="endPlace" placeholder="City, State OR Zip">
     </div>
     <div class="level-item">
@@ -33,7 +33,7 @@ export default {
 
 <style>
 .question {
-  color: white;
+  color: #143a44;
   font-size: 1.5em;
   font-weight: bold;
 }
@@ -42,9 +42,10 @@ export default {
   align-self: stretch;
   padding-left: 5px;
 }
+
 @media(max-width: 769px) {
   #ending-location {
-  margin-left: -10px;
+    margin-left: -10px;
   }
 }
 </style>
