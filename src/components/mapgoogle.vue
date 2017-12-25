@@ -1,14 +1,15 @@
 <!-- some of this code comes from https://developers.google.com/maps/documentation/javascript/examples/directions-waypoints,
 google code was adapted to suit vue, webpack, and this project. -->
 <template>
-  <div id="map-container" :addedParks="addedParks" :parks="parks">
-    <div id="map-wrapper">
-      <div id="map-inner-wrapper">
-        <div id="map"></div>
+  <div class="map-container" :addedParks="addedParks" :parks="parks">
+    <div class="map-wrapper">
+      <div class="map-inner-wrapper">
+        <div class="map"></div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
 export default {
   data () {
@@ -179,11 +180,11 @@ export default {
 }
 </script>
 <style>
-#map-container {
+.map-container {
   padding-top: .9rem;
 }
 
-#map-wrapper {
+.map-wrapper {
   height: 400px;
   min-height: 100%;
   margin-left: 25px;
@@ -191,11 +192,11 @@ export default {
   padding: 0;
 }
 
-#map {
+.map {
   height: 400px;
 }
 
-#map-inner-wrapper {
+.map-inner-wrapper {
   height: 100%;
   flex: 1;
 }
