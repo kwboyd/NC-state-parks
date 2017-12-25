@@ -4,7 +4,7 @@ google code was adapted to suit vue, webpack, and this project. -->
   <div class="map-container" :addedParks="addedParks" :parks="parks">
     <div class="map-wrapper">
       <div class="map-inner-wrapper">
-        <div class="map"></div>
+        <div id="map"></div>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ export default {
   padding: 0;
 }
 
-.map {
+#map {
   height: 400px;
 }
 
