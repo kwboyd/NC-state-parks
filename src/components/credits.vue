@@ -2,7 +2,7 @@
   <div :parks="parks" v-bind:class="modalObject" class="modal">
     <div class="modal-background">
       <div class="modal-content">
-        <div id="modal-stuff">
+        <div class="modal-stuff">
           <p>This site uses Vue.js, as well as the Google Maps API.</p>
           <p>Information from <a href="ncparks.gov">NCParks.gov</a></p>
           <p>Images from:</p>
@@ -47,10 +47,12 @@ export default {
 </script>
 
 <style>
-#modal-stuff {
+.modal-stuff {
+  margin-top: 50px;
   color: #fff;
 }
-#modal-stuff li {
+
+.modal-stuff li {
   word-wrap: break-word;
 }
 </style>

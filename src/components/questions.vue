@@ -5,11 +5,11 @@
       <input class="place-input" v-model="startPlace" placeholder="City, State OR Zip">
     </div>
     <div class="level-item question">
-      <p id="ending-location">Ending location: &nbsp;</p>
+      <p class="ending-location">Ending location: &nbsp;</p>
       <input class="place-input" v-model="endPlace" placeholder="City, State OR Zip">
     </div>
-    <div class="level-item">
-      <button class="button" @click="updateLocations">Update locations</button>
+    <div class="level-item lowered">
+      <button class="colored-button" @click="updateLocations">Update locations</button>
     </div>
   </div>
 </template>
@@ -44,8 +44,14 @@ export default {
 }
 
 @media(max-width: 769px) {
-  #ending-location {
+  .ending-location {
     margin-left: -10px;
+  }
+}
+
+@media(max-width: 450px) {
+  .lowered {
+    margin-top: 20px;
   }
 }
 </style>

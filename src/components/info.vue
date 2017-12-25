@@ -1,23 +1,22 @@
 <template>
-  <div id="info-container" :addedParks="addedParks" :parks="parks">
-    <!-- displays add/remove buttons depending on if the clicked park has been added, also checks if the currentParkIndex is at preload-->
-    <span v-if="currentParkIndex == 'preload'"></span>
-    <div v-else id="park-button-box">
-      <!-- passes the number property of the displayed park, which matches the index of the park in the parks array -->
-      <button class="colored-button" @click="addPark(parks[currentParkIndex].number)" v-if="!parks[currentParkIndex].added">Add to route</button>
-      <button class="colored-button" @click="removePark(parks[currentParkIndex].number)" v-else>Remove</button>
-      <p>Scroll within this box to learn about this park.</p>
-    </div>
-    <div id="park-info-box" v-if="currentParkIndex == 'preload'">
+  <div class="info-container" :addedParks="addedParks" :parks="parks">
+    <div class="park-info-box" v-if="currentParkIndex == 'preload'">
       <p class="park-name">Click on a map marker to select a park</p>
     </div>
-    <div id="park-info-box" v-else>
-      <p class="park-name"> {{ parks[currentParkIndex].name }} </p>
+    <div class="park-info-box" v-else>
       <img :src="parks[currentParkIndex].image" :alt="parks[currentParkIndex].name">
-      <p id="description"> {{ parks[currentParkIndex].description }} </p>
+      <div class="park-column">
+        <div class="park-title-row">
+          <p class="park-name"> {{ parks[currentParkIndex].name }} </p>
+          <button class="colored-button" @click="addPark(parks[currentParkIndex].number)" v-if="!parks[currentParkIndex].added">Add to route</button>
+          <button class="colored-button" @click="removePark(parks[currentParkIndex].number)" v-else>Remove from route</button>
+        </div>
+        <p class="description"> {{ parks[currentParkIndex].description }} </p>
+      </div>
     </div>
   </div>
 </template>
+
 <script>
 export default {
   props: ['parks', 'addedParks'],
@@ -52,29 +51,63 @@ export default {
 }
 </script>
 <style>
-#info-container {
+.info-container {
   margin-top: 25px;
 }
 
-#park-button-box {
+.park-info-box {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  margin: 45px 25px;
 }
 
-#park-button-box p {
-  font-size: .85em;
+.park-column {
+  margin-left: 35px;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+.park-title-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .park-name {
-  margin: 6px;
-  padding-top: 3px;
   font-size: 1.5em;
   color: #143a44;
+  font-weight: bold;
+  text-align: left;
 }
 
-#description {
+.description {
   text-align: left;
-  padding: 6px;
 }
+
+@media(max-width: 769px) {
+  .park-info-box {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .park-column {
+    margin-top: 20px;
+    margin-left: 0px;
+    width: auto;
+  }
+
+  .park-name {
+    font-size: 1.4em;
+  }
+
+  .park-info-box {
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+}
+
 </style>

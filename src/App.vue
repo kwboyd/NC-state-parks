@@ -123,15 +123,18 @@ export default {
 }
 
 .colored-button {
-  margin-right: 13px;
-  color: #fff;
-  /* background-color: #73c8ca; */
-  /*this styling from bulma*/
-  padding-left: .75em;
-  padding-right: .75em;
+  background: rgba(255,255,255,1);
+  background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(247,247,247,1) 47%, rgba(240,240,240,1) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(47%, rgba(247,247,247,1)), color-stop(100%, rgba(240,240,240,1)));
+  background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(247,247,247,1) 47%, rgba(240,240,240,1) 100%);
+  background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(247,247,247,1) 47%, rgba(240,240,240,1) 100%);
+  background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(247,247,247,1) 47%, rgba(240,240,240,1) 100%);
+  background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(247,247,247,1) 47%, rgba(240,240,240,1) 100%);
   cursor: pointer;
-  height: 2.285em;
-  font-size: 1rem;
+  font-weight: bold;
+  height: 3em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
   border-radius: 3px;
 }
 

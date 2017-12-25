@@ -187,9 +187,8 @@ export default {
   height: 400px;
   min-height: 100%;
   margin-left: 25px;
+  margin-right: 25px;
   padding: 0;
-  margin-right: 12px;
-  border-radius: 8px;
 }
 
 #map {
